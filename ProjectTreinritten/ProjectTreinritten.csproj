@@ -11,4 +11,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.7" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ProjectTreinritten.Domain\ProjectTreinritten.Domain.csproj" />
+    <ProjectReference Include="..\ProjectTreinritten.Service\ProjectTreinritten.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
+  </ItemGroup>
+
 </Project>
