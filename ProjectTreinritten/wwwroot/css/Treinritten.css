@@ -20,11 +20,14 @@
     text-align: center;
     padding-top: 20px;
     padding-bottom: 20px;
+    text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
 .bannerImg{
     padding-top:20px;
     padding-bottom:20px;
+    width:100%;
+    height:auto;
 }
 
 #background-home {
