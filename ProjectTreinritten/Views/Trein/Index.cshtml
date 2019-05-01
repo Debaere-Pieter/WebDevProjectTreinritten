@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<div id="background-home">
+    <div class="container ">
+        <div class="row">
+            <div class="col-12">
+                <h1>Welkom bij het project van Gilles en Pieter!</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--=== Jquery Min Js ===-->
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<!--=== Jquery Migrate Min Js ===-->
+<script src="~/js/jquery-migrate.min.js"></script>
+<script>
+    $("#background-home").css("height", window.innerHeight - 113);
+    let height = $(window).height();
+    $(window).on('resize', function () {
+        $("#background-home").css("height", window.innerHeight - 113);
+    });
+</script>
