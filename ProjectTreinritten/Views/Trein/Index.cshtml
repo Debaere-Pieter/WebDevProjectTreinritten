@@ -5,20 +5,52 @@
     <div class="container ">
         <div class="row">
             <div class="col-12">
-                <h1>Welkom bij het project van Gilles en Pieter!</h1>
+                <h1 id="title">Welkom bij het project van Pieter en Gilles!</h1>
             </div>
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <img class="bannerImg" src="~/images/banner1.png" />
+        </div>
+        <div class="col-6">
+            <img class="bannerImg" src="~/images/banner2.png" />
+        </div>
+    </div>
+</div>
+<div id="banner1">
+    <div class="container ">
+        <div class=" row">
+            <div class="col-4">
+                <img class="promImg" src="~/images/prom1.png" />
+            </div>
+            <div class="col-4">
+                <img class="promImg" src="~/images/prom2.png" />
+            </div>
+            <div class="col-4">
+                <img class="promImg" src="~/images/prom3.png" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img src="~/images/knop1.png" />
+        </div>
+        <div class="col-4">
+            <img src="~/images/knop2.png" />
+        </div>
+        <div class="col-4">
+            <img src="~/images/knop3.png" />
+        </div>
+    </div>
+</div>
+
 
 <!--=== Jquery Min Js ===-->
 <script src="~/js/jquery-3.2.1.min.js"></script>
 <!--=== Jquery Migrate Min Js ===-->
 <script src="~/js/jquery-migrate.min.js"></script>
-<script>
-    $("#background-home").css("height", window.innerHeight - 113);
-    let height = $(window).height();
-    $(window).on('resize', function () {
-        $("#background-home").css("height", window.innerHeight - 113);
-    });
-</script>

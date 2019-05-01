@@ -1,4 +1,10 @@
-﻿/*
+﻿
+/*
+    blauw: #06183d;
+    geel: #fadb00; 
+*/
+
+/*
     Start CSS Pieter
 */
 #logo {
@@ -9,13 +15,39 @@
     height: 50px;
 }
 
+#title {
+    color: #06183d;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.bannerImg{
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
 #background-home {
-    background-image: url('../images/background.jpg');
-    width: 100%;
+    background-image: url('../images/backgroundbanner.jpg');
+    height:340px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+}
+
+#banner1 {
+    background-color: #d4f1f5;
+    height: 203px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.promImg{
+    height:203px;
+    width:auto;
 }
 
 a:hover {
