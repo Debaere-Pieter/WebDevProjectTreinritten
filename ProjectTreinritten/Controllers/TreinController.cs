@@ -1,10 +1,30 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProjectTreinritten.Domain.Entities;
+using ProjectTreinritten.Service;
 
 namespace ProjectTreinritten.Controllers
 {
     public class TreinController : Controller
     {
+        private BoekingService boekingService;
+        private HotelService hotelService;
+        private RitService ritService;
+        private StationService stationService;
+        private TrajectService trajectService;
+        private TreinTypeService treinTypeService;
+        private VakantieDagenService vakantieDagenService;
+
+        public TreinController()
+        {
+            boekingService = new BoekingService();
+            hotelService = new HotelService();
+            ritService = new RitService();
+            stationService = new StationService();
+            trajectService = new TrajectService();
+            treinTypeService = new TreinTypeService();
+            vakantieDagenService = new VakantieDagenService();
+        }
+
         //startpagina met linken naar alle functionaliteiten
         public IActionResult Index()
         {
