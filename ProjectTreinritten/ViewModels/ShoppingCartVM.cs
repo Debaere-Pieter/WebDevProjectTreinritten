@@ -12,8 +12,9 @@ namespace ProjectTreinritten.ViewModel
 
     public class CartVM
     {
-        public int TrajectNr { get; set; }
+        public int BoekingNr { get; set; }
         public string Naam { get; set; }
+        public string Voornaam { get; set; }
         public int Aantal { get; set; }
         public float Prijs { get; set; }
         public System.DateTime DateCreated { get; set; }

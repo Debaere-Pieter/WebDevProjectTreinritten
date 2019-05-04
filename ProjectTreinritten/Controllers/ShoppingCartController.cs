@@ -27,16 +27,16 @@ namespace ProjectTreinritten.Controllers
             return View(cartList);
         }
 
-        public ActionResult Delete(int? trajectNr)
+        public ActionResult Delete(int? boekingNr)
         {
-            if (trajectNr == null)
+            if (boekingNr == null)
             {
                 return NotFound();
             }
 
             ShoppingCartVM cartList = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
 
-            var itemToRemove = cartList.Cart.FirstOrDefault(r => r.TrajectNr == trajectNr);
+            var itemToRemove = cartList.Cart.FirstOrDefault(r => r.BoekingNr == boekingNr);
 
             if (itemToRemove != null)
             {

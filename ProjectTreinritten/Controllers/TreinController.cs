@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjectTreinritten.Domain.Entities;
+using ProjectTreinritten.Extensions;
 using ProjectTreinritten.Service;
+using ProjectTreinritten.ViewModel;
+using System;
+using System.Collections.Generic;
 
 namespace ProjectTreinritten.Controllers
 {
@@ -83,6 +87,45 @@ namespace ProjectTreinritten.Controllers
         public IActionResult Wachtwoord()
         {
             return View();
+        }
+
+        public IActionResult Select(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            
+            Boeking b = boekingService.Get(Convert.ToInt16(id));
+
+            CartVM item = new CartVM
+            {
+                BoekingNr = b.BoekingId,
+                Aantal = 1,
+                Prijs = 15,
+                DateCreated = DateTime.Now,
+                Naam = b.Naam,
+                Voornaam = b.Voornaam
+            };
+
+            ShoppingCartVM shopping;
+
+            if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+            {
+                shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            }
+            else
+            {
+                shopping = new ShoppingCartVM();
+                shopping.Cart = new List<CartVM>();
+            }
+
+            shopping.Cart.Add(item);
+            HttpContext.Session.SetObject("ShoppingCart", shopping);
+
+
+            return RedirectToAction("Index", "ShoppingCart");
         }
     }
 }
