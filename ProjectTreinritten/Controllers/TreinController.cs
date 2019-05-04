@@ -62,7 +62,7 @@ namespace ProjectTreinritten.Controllers
         //pagina om winkelkar te bekijken
         public IActionResult Winkelkar()
         {
-            return View();
+            return RedirectToAction("Index", "ShoppingCart");
         }
 
         //pagina om in te loggen
