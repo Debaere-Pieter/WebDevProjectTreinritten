@@ -24,6 +24,11 @@
                 </th>
 
                 <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Voornaam)
+
+                </th>
+
+                <th>
                     @Html.DisplayNameFor(model => model.Cart[0].Aantal)
 
                 </th>
@@ -38,33 +43,36 @@
             @{ float total = 0;}
             @for (var i = 0; i < Model.Cart.Count; i++)
             {
-                <tr>
-                    <!--we willen biernr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
-                    @Html.HiddenFor(m => Model.Cart[i].Biernr)
-                    <td>
-                        <input asp-for="@Model.Cart[i].Naam" readonly="readonly" class="form-control" />
-                    </td>
-                    <td>
-                        <input asp-for="@Model.Cart[i].Aantal" type="number" min="1" max="5" data-aantal=@i />
-                    </td>
-                    <td>
-                        <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
+            <tr>
+                <!--we willen biernr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
+                @Html.HiddenFor(m => Model.Cart[i].BoekingNr)
+                <td>
+                    <input asp-for="@Model.Cart[i].Naam" readonly="readonly" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Voornaam" readonly="readonly" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Aantal" type="number" min="1" max="5" data-aantal=@i />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
 
-                        @{
-                            var subtotaal = Model.Cart[i].Prijs * Model.Cart[i].Aantal;
-                            total += subtotaal;
-                        }
-                    </td>
-                    <td>
-                        <input id="@("txtSubTotal" + @i)" value="@subtotaal" type="number" readonly="readonly" />
-                    </td>
+                    @{
+                        var subtotaal = Model.Cart[i].Prijs * Model.Cart[i].Aantal;
+                        total += subtotaal;
+                    }
+                </td>
+                <td>
+                    <input id="@("txtSubTotal" + @i)" value="@subtotaal" type="number" readonly="readonly" />
+                </td>
 
-                    <td>
-                        <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-bierNr="@Model.Cart[i].Biernr">
-                            <img src="~/images/delete.jpg" />
-                        </a>
-                    </td>
-                </tr>
+                <td>
+                    <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-bierNr="@Model.Cart[i].BoekingNr">
+                        <img src="~/images/delete.jpg" />
+                    </a>
+                </td>
+            </tr>
             }
 
             <tr>
@@ -83,9 +91,9 @@ else
 }
 
 
-<a asp-controller="Bier"
+<a asp-controller="Trein"
    asp-action="Index">
-
+    <!--Dit moet hier ipv index boeken worden wanneer we die view hebben-->
     Continue
 </a>
 
