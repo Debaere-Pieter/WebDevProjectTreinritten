@@ -49,6 +49,11 @@ namespace ProjectTreinritten.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Boeken(BoekenVM b)
+        {
+            return View();
+        }
 
         //pagina die bevestiging van boeking toont
         public IActionResult Bevestiging(BoekingVM b)
