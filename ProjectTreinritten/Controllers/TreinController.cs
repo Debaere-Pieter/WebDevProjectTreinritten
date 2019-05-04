@@ -3,6 +3,7 @@ using ProjectTreinritten.Domain.Entities;
 using ProjectTreinritten.Extensions;
 using ProjectTreinritten.Service;
 using ProjectTreinritten.ViewModel;
+using ProjectTreinritten.ViewModels;
 using System;
 using System.Collections.Generic;
 
@@ -29,6 +30,8 @@ namespace ProjectTreinritten.Controllers
             vakantieDagenService = new VakantieDagenService();
         }
 
+        //todo's vragen voor de prijs en vragen of we moeten checken of ticketten uniek moeten zijn.
+
         //startpagina met linken naar alle functionaliteiten
         public IActionResult Index()
         {
@@ -48,9 +51,9 @@ namespace ProjectTreinritten.Controllers
         }
 
         //pagina die bevestiging van boeking toont
-        public IActionResult Bevestiging()
+        public IActionResult Bevestiging(BoekingVM b)
         {
-            return View();
+            return View(b);
         }
 
         //pagina om bestelgeschiedenis te bekijken
