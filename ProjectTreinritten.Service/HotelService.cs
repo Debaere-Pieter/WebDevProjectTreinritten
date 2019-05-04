@@ -34,5 +34,10 @@ namespace ProjectTreinritten.Service
         {
             hotelDAO.Create(entity);
         }
+
+        public IEnumerable<Hotel> HotelByStation(int stationId)
+        {
+            return hotelDAO.HotelByStation(stationId);
+        }
     }
 }

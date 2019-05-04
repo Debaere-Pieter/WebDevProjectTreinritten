@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectTreinritten.Domain.Entities;
 using ProjectTreinritten.Extensions;
 using ProjectTreinritten.Service;
@@ -31,6 +32,8 @@ namespace ProjectTreinritten.Controllers
         }
 
         //todo's vragen voor de prijs en vragen of we moeten checken of ticketten uniek moeten zijn.
+        //overstappen hardcoden of computer laten zoeken
+        //hotelId nullable maken
 
         //startpagina met linken naar alle functionaliteiten
         public IActionResult Index()
@@ -47,8 +50,19 @@ namespace ProjectTreinritten.Controllers
         //pagina om een boeking te doen
         public IActionResult Boeken()
         {
+            stationService = new StationService();
+            ViewBag.StationId =
+                new SelectList(stationService.GetAll(),
+                 "StationId", "StationNaam");
+
+            hotelService = new HotelService();
+            ViewBag.HotelId =
+                new SelectList(hotelService.GetAll(),
+                 "StationId", "HotelNaam");
+
             return View();
         }
+
         [HttpPost]
         public IActionResult Boeken(BoekenVM b)
         {

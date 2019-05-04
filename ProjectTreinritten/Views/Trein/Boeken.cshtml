@@ -1,82 +1,232 @@
-﻿@model IEnumerable<ProjectTreinritten.Domain.Entities.Boeking>
+﻿@model ProjectTreinritten.ViewModels.BoekenVM
 
 @{
     ViewData["Title"] = "Boeken";
 }
-
-<h2>Boeken</h2>
 <div class="container">
-    <form>
+    <h2>Boeken</h2>
 
-    </form>
+    <h4>BoekenVM</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Boeken">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Vertrekpunt" class="control-label"></label>
+                    <select asp-for="Vertrekpunt" class="form-control" asp-items="ViewBag.StationId" onchange="removeSelectedStation()" id="Vertrekpunt">
+                        <option value="0">Gelieve een station te selecteren</option>
+                    </select>
+                    <span asp-validation-for="Vertrekpunt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Eindpunt" class="control-label"></label>
+                    <select asp-for="Eindpunt" class="form-control" asp-items="ViewBag.StationId"  onchange="setHotels()" id="Eindpunt">
+                        <option value="0">Gelieve een station te selecteren</option>
+                    </select>
+                    <span asp-validation-for="Eindpunt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Klasse" class="control-label"></label>
+                    <select asp-for="Klasse" class="form-control">
+                        <option>Gelieve een klasse te selecteren</option>
+                        <option value="Economic">Economic</option>
+                        <option value="Business">Buisiness</option>
+                    </select>
+                    <span asp-validation-for="Klasse" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AantalPersonen" class="control-label">Aantal personen</label>
+                    <select asp-for="AantalPersonen" class="form-control" id="aantalPersonen" onchange="changeVelden()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <span asp-validation-for="AantalPersonen" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam1">
+                    <label asp-for="Voornaam1" class="control-label">Voornaam</label>
+                    <input asp-for="Voornaam1" class="form-control" />
+                    <span asp-validation-for="Voornaam1" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam1">
+                    <label asp-for="Naam1" class="control-label">Naam</label>
+                    <input asp-for="Naam1" class="form-control" />
+                    <span asp-validation-for="Naam1" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam2">
+                    <label asp-for="Voornaam2" class="control-label">Voornaam persoon 2</label>
+                    <input asp-for="Voornaam2" class="form-control" />
+                    <span asp-validation-for="Voornaam2" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam2">
+                    <label asp-for="Naam2" class="control-label">Naam persoon 2</label>
+                    <input asp-for="Naam2" class="form-control" />
+                    <span asp-validation-for="Naam2" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam3">
+                    <label asp-for="Voornaam3" class="control-label">Voornaam persoon 3</label>
+                    <input asp-for="Voornaam3" class="form-control" />
+                    <span asp-validation-for="Voornaam3" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam3">
+                    <label asp-for="Naam3" class="control-label">Naam persoon 3</label>
+                    <input asp-for="Naam3" class="form-control" />
+                    <span asp-validation-for="Naam3" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam4">
+                    <label asp-for="Voornaam4" class="control-label">Voornaam persoon 4</label>
+                    <input asp-for="Voornaam4" class="form-control" />
+                    <span asp-validation-for="Voornaam4" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam4">
+                    <label asp-for="Naam4" class="control-label">Naam persoon 4</label>
+                    <input asp-for="Naam4" class="form-control" />
+                    <span asp-validation-for="Naam4" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam5">
+                    <label asp-for="Voornaam5" class="control-label">Voornaam persoon 5</label>
+                    <input asp-for="Voornaam5" class="form-control" />
+                    <span asp-validation-for="Voornaam5" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam5">
+                    <label asp-for="Naam5" class="control-label">Naam persoon 5</label>
+                    <input asp-for="Naam5" class="form-control" />
+                    <span asp-validation-for="Naam5" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam6">
+                    <label asp-for="Voornaam5" class="control-label">Voornaam persoon 5</label>
+                    <input asp-for="Voornaam5" class="form-control" />
+                    <span asp-validation-for="Voornaam5" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam6">
+                    <label asp-for="Naam6" class="control-label">Naam persoon 6</label>
+                    <input asp-for="Naam6" class="form-control" />
+                    <span asp-validation-for="Naam6" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam7">
+                    <label asp-for="Voornaam7" class="control-label">Voornaam persoon 6</label>
+                    <input asp-for="Voornaam7" class="form-control" />
+                    <span asp-validation-for="Voornaam7" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam7">
+                    <label asp-for="Naam7" class="control-label">Naam persoon 7</label>
+                    <input asp-for="Naam7" class="form-control" />
+                    <span asp-validation-for="Naam7" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam8">
+                    <label asp-for="Voornaam8" class="control-label">Voornaam persoon 8</label>
+                    <input asp-for="Voornaam8" class="form-control" />
+                    <span asp-validation-for="Voornaam8" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam8">
+                    <label asp-for="Naam8" class="control-label">Naam persoon 8</label>
+                    <input asp-for="Naam8" class="form-control" />
+                    <span asp-validation-for="Naam8" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam9">
+                    <label asp-for="Voornaam9" class="control-label">Voornaam persoon 9</label>
+                    <input asp-for="Voornaam9" class="form-control" />
+                    <span asp-validation-for="Voornaam9" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam9">
+                    <label asp-for="Naam9" class="control-label">Naam persoon 9</label>
+                    <input asp-for="Naam9" class="form-control" />
+                    <span asp-validation-for="Naam9" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="voornaam10">
+                    <label asp-for="Voornaam10" class="control-label">Voornaam persoon 10</label>
+                    <input asp-for="Voornaam10" class="form-control" />
+                    <span asp-validation-for="Voornaam10" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="naam10">
+                    <label asp-for="Naam10" class="control-label">Naam persoon 10</label>
+                    <input asp-for="Naam10" class="form-control" />
+                    <span asp-validation-for="Naam10" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Vertrekdatum" class="control-label"></label>
+                    <input asp-for="Vertrekdatum" class="form-control" type="text" id="datepicker" />
+                    <span asp-validation-for="Vertrekdatum" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HotelNaam" class="control-label">Hotelnaam</label>
+                    <select asp-for="HotelNaam" class="form-control" asp-items="ViewBag.HotelId" id="Hotel">
+                        <option value="0">Gelieve een hotel te selecteren</option>
+                    </select>
+                    <span asp-validation-for="HotelNaam" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Boeken" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 
-<!--
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Klasse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BoekingsDatum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VertrekDatum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Naam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Voornaam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Login)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Traject)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@* @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Klasse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BoekingsDatum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VertrekDatum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Voornaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Hotel.HotelNaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Login.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Traject.TrajectId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BoekingId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BoekingId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BoekingId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-    *@
--->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="~/js/jquery-3.2.1.min.js"></script>
+<script src="~/js/jquery-migrate.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            minDate: "+2w",
+            dateFormat: "dd-mm-yy",
+        });
+
+    });
+    const changeVelden = () => {
+        for (let i = 1; i <= $("#aantalPersonen").children("option:selected").val(); i++) {
+            $("#naam" + i).show();
+            $("#voornaam" + i).show();
+        }
+        for (let i = 10; i > $("#aantalPersonen").children("option:selected").val(); i--) {
+            $("#naam" + i).hide();
+            $("#voornaam" + i).hide();
+        }
+    }
+    //functie uitvoeren als pagina laad zodat er maar voor één persoon inputvelden zichtbaar zijn
+    changeVelden();
+   
+    const removeSelectedStation = () => {
+        $('#Eindpunt option').each(function (index, element) {
+            if (element.value != $("#Vertrekpunt").children("option:selected").val() || element.value == 0) {
+                element.style.display = "block"
+            }
+            else {
+                element.style.display = "none"
+            }
+        });
+        $("#Eindpunt").val(0)
+    }
+
+    const setHotels = () => {
+        $('#Hotel option').each(function (index, element) {
+            if (element.value === $("#Eindpunt").children("option:selected").val() || element.value == 0) {
+                element.style.display = "block"
+            }
+            else {
+                element.style.display = "none"
+            }
+        });
+        $("#Hotel").val(0)
+    }
+    setHotels();
+</script>
+
+
+

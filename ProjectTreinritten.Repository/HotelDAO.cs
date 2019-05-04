@@ -26,6 +26,11 @@ namespace ProjectTreinritten.Repository
             return _db.Hotel.Where(b => b.HotelId == id).First();
         }
 
+        public IEnumerable<Hotel> HotelByStation(int stationId)
+        {
+            return _db.Hotel.Where(b => b.StationId == stationId);
+        }
+
         public void Update(Hotel entity)
         {
             _db.Entry(entity).State = EntityState.Modified;
