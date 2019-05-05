@@ -10,11 +10,6 @@
 
 <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
 
-
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -62,18 +57,59 @@
                     @Html.DisplayFor(modelItem => item.VertrekStation.StationNaam)
                 </td>
                 <td>
-                    <a asp-action="Select" asp-route-id="@item.RitId">Select</a>
+                    <a onclick="hiddenUpdaten(@item.RitId)">Select</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+<div class="container">
+    <form asp-action="Select">
+        <div class="row">
+            <div class="col-6">
+                @Model.Vertrekpunt
+            </div>           
+            <div class="col-6">
+                @Model.Eindpunt
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                @Model.Naam1
+            </div>               
+            <div class="col-6">
+                @Model.Voornaam1
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                @Model.Klasse
+            </div>
+            <div class="col-6">
+                @Model.HotelNaam
+            </div>
+        </div>
+        <div>
+            <div id="GekozenRit" class="col-12" style="display:none">
+                
+            </div>
+        </div>
+        <input type="submit" id="hiddenKnop" style="display:none"/>
+    </form>
+</div>
+<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
     @*Toevoegen voor tables + sortering*@
-    <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable();
-        });
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
 
-    </script>
+</script>
+
+<script>
+    const hiddenUpdaten = (a) => {
+        document.getElementById("GekozenRit").innerHTML = a;
+        document.getElementById("hiddenKnop").click();
+    }
+</script>
