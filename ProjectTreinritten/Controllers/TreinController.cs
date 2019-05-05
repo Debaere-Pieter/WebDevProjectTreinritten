@@ -66,7 +66,16 @@ namespace ProjectTreinritten.Controllers
         [HttpPost]
         public IActionResult Boeken(BoekenVM b)
         {
-            return View();
+            if (b == null)
+            {
+                return NotFound();
+            }
+
+            Rit rit = ritService.GetByCities(b.Vertrekpunt, b.Eindpunt);
+            var list = new List<Rit>();
+            list.Add(rit);
+            b.Ritten = list;
+            return View(b);
         }
 
         //pagina die bevestiging van boeking toont
@@ -111,40 +120,41 @@ namespace ProjectTreinritten.Controllers
             return View();
         }
 
-        public IActionResult Select(int? id)
+        public IActionResult Select(BoekenVM b)
         {
-            if (id == null)
+            if (b == null)
             {
                 return NotFound();
             }
 
-            
-            Boeking b = boekingService.Get(Convert.ToInt16(id));
+            var r = b.Ritten;
+            //Rit r = ritService.Get(id);
+            //Traject t = trajectService.GetByRit(r);
 
-            CartVM item = new CartVM
-            {
-                BoekingNr = b.BoekingId,
-                Aantal = 1,
-                Prijs = 15,
-                DateCreated = DateTime.Now,
-                Naam = b.Naam,
-                Voornaam = b.Voornaam
-            };
+            //CartVM item = new CartVM
+            //{
+            //    TrajectNr = t.TrajectId,
+            //    Aantal = b.AantalPersonen,
+            //    Prijs = 15,
+            //    DateCreated = DateTime.Now,
+            //    Naam = b.Naam1,
+            //    Voornaam = b.Voornaam1
+            //};
 
-            ShoppingCartVM shopping;
+            //ShoppingCartVM shopping;
 
-            if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
-            {
-                shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
-            }
-            else
-            {
-                shopping = new ShoppingCartVM();
-                shopping.Cart = new List<CartVM>();
-            }
+            //if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+            //{
+            //    shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            //}
+            //else
+            //{
+            //    shopping = new ShoppingCartVM();
+            //    shopping.Cart = new List<CartVM>();
+            //}
 
-            shopping.Cart.Add(item);
-            HttpContext.Session.SetObject("ShoppingCart", shopping);
+            //shopping.Cart.Add(item);
+            //HttpContext.Session.SetObject("ShoppingCart", shopping);
 
 
             return RedirectToAction("Index", "ShoppingCart");

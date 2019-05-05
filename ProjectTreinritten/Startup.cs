@@ -34,6 +34,17 @@ namespace ProjectTreinritten
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //session
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Name = ".Beer.Session";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                //standaard is dit 20 minuten ipv van de 60 seconden hier
+                options.IdleTimeout = TimeSpan.FromSeconds(60);
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -62,6 +73,9 @@ namespace ProjectTreinritten
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            // add Session die we in de methode hierboven hebben aangemaakt
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

@@ -25,6 +25,11 @@ namespace ProjectTreinritten.Service
             return trajectDAO.Get(id);
         }
 
+        public Traject GetByRit(Rit r)
+        {
+            return trajectDAO.GetByRit(r);
+        }
+
         public void Update(Traject entity)
         {
             trajectDAO.Update(entity);

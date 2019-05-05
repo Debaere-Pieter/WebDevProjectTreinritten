@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectTreinritten.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace ProjectTreinritten.ViewModels
     public class BoekenVM
     {
         public int Vertrekpunt { get; set; }
-        public string Eindpunt { get; set; }
+        public int Eindpunt { get; set; }
         public string Klasse { get; set; }
         public int AantalPersonen { get; set; }
         public string Voornaam1 { get; set; }
@@ -33,5 +34,6 @@ namespace ProjectTreinritten.ViewModels
         public string Naam10 { get; set; }
         public DateTime Vertrekdatum { get; set; }
         public int HotelNaam { get; set; }
+        public List<Rit> Ritten { get; set; }
     }
 }

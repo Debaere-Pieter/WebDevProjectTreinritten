@@ -45,7 +45,7 @@
             {
             <tr>
                 <!--we willen biernr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
-                @Html.HiddenFor(m => Model.Cart[i].BoekingNr)
+                @Html.HiddenFor(m => Model.Cart[i].TrajectNr)
                 <td>
                     <input asp-for="@Model.Cart[i].Naam" readonly="readonly" class="form-control" />
                 </td>
@@ -68,7 +68,7 @@
                 </td>
 
                 <td>
-                    <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-bierNr="@Model.Cart[i].BoekingNr">
+                    <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-trajectNr="@Model.Cart[i].TrajectNr">
                         <img src="~/images/delete.jpg" />
                     </a>
                 </td>

@@ -26,6 +26,11 @@ namespace ProjectTreinritten.Repository
             return _db.Traject.Where(b => b.TrajectId == id).First();
         }
 
+        public Traject GetByRit(Rit r)
+        {
+            return _db.Traject.Where(b => b.Rit1Id == r.RitId).First();
+        }
+
         public void Update(Traject entity)
         {
             _db.Entry(entity).State = EntityState.Modified;
