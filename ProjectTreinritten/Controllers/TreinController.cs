@@ -127,34 +127,33 @@ namespace ProjectTreinritten.Controllers
                 return NotFound();
             }
 
-            var r = b.Ritten;
-            //Rit r = ritService.Get(id);
-            //Traject t = trajectService.GetByRit(r);
+            var id = b.Ritten[0].RitId;
+            Rit r = ritService.Get(id);
+            Traject t = trajectService.GetByRit(r);
 
-            //CartVM item = new CartVM
-            //{
-            //    TrajectNr = t.TrajectId,
-            //    Aantal = b.AantalPersonen,
-            //    Prijs = 15,
-            //    DateCreated = DateTime.Now,
-            //    Naam = b.Naam1,
-            //    Voornaam = b.Voornaam1
-            //};
+            CartVM item = new CartVM
+            {
+                TrajectNr = t.TrajectId,                
+                Prijs = 15,
+                DateCreated = DateTime.Now,
+                Naam = b.Naam1,
+                Voornaam = b.Voornaam1
+            };
 
-            //ShoppingCartVM shopping;
+            ShoppingCartVM shopping;
 
-            //if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
-            //{
-            //    shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
-            //}
-            //else
-            //{
-            //    shopping = new ShoppingCartVM();
-            //    shopping.Cart = new List<CartVM>();
-            //}
+            if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+            {
+                shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            }
+            else
+            {
+                shopping = new ShoppingCartVM();
+                shopping.Cart = new List<CartVM>();
+            }
 
-            //shopping.Cart.Add(item);
-            //HttpContext.Session.SetObject("ShoppingCart", shopping);
+            shopping.Cart.Add(item);
+            HttpContext.Session.SetObject("ShoppingCart", shopping);
 
 
             return RedirectToAction("Index", "ShoppingCart");

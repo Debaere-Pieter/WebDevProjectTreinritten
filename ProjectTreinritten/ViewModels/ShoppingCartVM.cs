@@ -15,8 +15,9 @@ namespace ProjectTreinritten.ViewModel
         public int TrajectNr { get; set; }
         public string Naam { get; set; }
         public string Voornaam { get; set; }
-        public int Aantal { get; set; }
         public float Prijs { get; set; }
+        public int Aantal { get; set; }
+        public int? HotelId { get; set; }
         public System.DateTime DateCreated { get; set; }
     }
 }
