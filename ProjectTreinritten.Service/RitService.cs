@@ -25,9 +25,9 @@ namespace ProjectTreinritten.Service
             return ritDAO.Get(id);
         }
 
-        public Rit GetByCities(int VertrekId, int EindId)
+        public IEnumerable<Rit> GetAllByCities(int VertrekId, int EindId)
         {
-            return ritDAO.GetByCities(VertrekId, EindId);
+            return ritDAO.GetAllByCities(VertrekId, EindId);
         }
 
         public void Update(Rit entity)

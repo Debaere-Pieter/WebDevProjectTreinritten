@@ -34,6 +34,6 @@ namespace ProjectTreinritten.ViewModels
         public string Naam10 { get; set; }
         public DateTime Vertrekdatum { get; set; }
         public int HotelNaam { get; set; }
-        public List<Rit> Ritten { get; set; }
+        public IEnumerable<Rit> Ritten { get; set; }
     }
 }

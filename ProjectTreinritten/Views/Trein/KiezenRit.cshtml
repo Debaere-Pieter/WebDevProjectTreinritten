@@ -1,0 +1,85 @@
+﻿@model ProjectTreinritten.ViewModels.BoekenVM
+
+@{
+    ViewData["Title"] = "KiezenRit";
+}
+
+<h2>KiezenRit</h2>
+
+@section styles
+
+    {
+
+    <link href="~/lib/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Vertrekuur
+            </th>
+            <th>
+                Aankomstuur
+            </th>
+            <th>
+                duur
+            </th>
+            <th>
+                AankomstStation
+            </th>
+            <th>
+                Treintype
+            </th>
+            <th>
+                Vertrekstation
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Ritten)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VertrekUur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AankomstUur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duur)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AankomstStation.StationNaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreinType.TreinTypeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VertrekStation.StationNaam)
+                </td>
+                <td>
+                    <a asp-action="Select" asp-route-id="@item.RitId">Select</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts
+
+    {
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    @*Toevoegen voor tables + sortering*@
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+
+    </script>
+}

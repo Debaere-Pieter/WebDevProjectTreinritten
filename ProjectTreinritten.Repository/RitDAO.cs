@@ -26,9 +26,9 @@ namespace ProjectTreinritten.Repository
             return _db.Rit.Where(b => b.RitId == id).First();
         }
 
-        public Rit GetByCities(int VertrekId, int EindId)
+        public IEnumerable<Rit> GetAllByCities(int VertrekId, int EindId)
         {
-            return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId).First();
+            return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId).ToList();
         }
 
         public void Update(Rit entity)
