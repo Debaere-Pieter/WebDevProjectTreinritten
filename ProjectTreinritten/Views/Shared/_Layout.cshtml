@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -11,40 +16,83 @@
 <body>
     <header>
         <div class="container">
-            <div class="row">
-                <div class="col-2">
-                    <a asp-action="Index">
-                        <img src="~/images/logo.png" id="logo" />
-                    </a>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Trein", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+                    <div class="row">
+                        <div class="col-2">
+                            <a asp-action="Index">
+                                <img src="~/images/logo.png" id="logo" />
+                            </a>
+                        </div>
+                        <div class="col-10">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a><div style="color:white"> <button type="submit">Afmelden</button></div></a>
+                                    </li>
+                                    <li>
+                                        <a><div style="color:white">Mijn account</div></a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="Winkelkar">
+                                            <img src="~/images/cart.png" id="winkelkar" />
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 txt20px" id="bottomNav">
+                            <nav>
+                                <ul>
+                                    <li><a asp-action="Boeken"><div>Boeken</div></a></li>
+                                    <li><a asp-action="Over"><div>Over</div></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-2">
+                        <a asp-action="Index">
+                            <img src="~/images/logo.png" id="logo" />
+                        </a>
+                    </div>
+                    <div class="col-10">
+                        <nav>
+                            <ul>
+                                <li><a asp-area="Identity" asp-page="/Account/Register"><div>Registreren</div></a></li>
+                                <li><a asp-area="Identity" asp-page="/Account/Login"><div>Aanmelden</div></a></li>
+                                <li>
+                                    <a asp-action="Winkelkar">
+                                        <img src="~/images/cart.png" id="winkelkar" />
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
-                <div class="col-10">
-                    <nav>
-                        <ul>
-                            <li><a asp-action="Registreer"><div>Registreren</div></a></li>
-                            <li><a asp-action="Inloggen"><div>Aanmelden</div></a></li>
-                            <li>
-                                <a asp-action="Winkelkar">
-                                    <img src="~/images/cart.png" id="winkelkar" />
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+                <div class="row">
+                    <div class="col-12 txt20px" id="bottomNav">
+                        <nav>
+                            <ul>
+                                <li><a asp-action="Boeken"><div>Boeken</div></a></li>
+                                <li><a asp-action="Over"><div>Over</div></a></li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12 txt20px" id="bottomNav">
-                    <nav>
-                        <ul>
-                            <li><a asp-action="Boeken"><div>Boeken</div></a></li>
-                            <li><a asp-action="Over"><div>Over</div></a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+            }
         </div>
     </header>
-    <div>
+    <div class="container">
         @RenderBody()
     </div>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -17,7 +17,6 @@ namespace ProjectTreinritten.ViewModels
         public int HotelId { get; set; }
         public int TrajectId { get; set; }
         public string LoginId { get; set; }
-
         public Hotel Hotel { get; set; }
         public AspNetUsers Login { get; set; }
         public Traject Traject { get; set; }

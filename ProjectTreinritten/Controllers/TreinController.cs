@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectTreinritten.Domain.Entities;
 using ProjectTreinritten.Extensions;
@@ -7,6 +8,7 @@ using ProjectTreinritten.ViewModel;
 using ProjectTreinritten.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ProjectTreinritten.Controllers
 {
@@ -48,6 +50,7 @@ namespace ProjectTreinritten.Controllers
         }
 
         //pagina om een boeking te doen
+        [Authorize]
         public IActionResult Boeken()
         {
             stationService = new StationService();
@@ -63,7 +66,7 @@ namespace ProjectTreinritten.Controllers
             return View();
         }
 
-        
+        [Authorize]
         public IActionResult KiezenRit(BoekenVM b)
         {
             if (b == null)
@@ -71,11 +74,33 @@ namespace ProjectTreinritten.Controllers
                 return NotFound();
             }
 
-            var list = ritService.GetAllByCities(b.Vertrekpunt, b.Eindpunt);
+            //System.Diagnostics.Debug.WriteLine("printen in console");
 
-            b.Ritten = list;
+            for(int a =0; a<b.AantalPersonen; a++)
+            {
+                if(string.IsNullOrEmpty(b.Namen.ElementAt(a)) || b.Namen.ElementAt(a).Length < 3 || b.Namen.ElementAt(a).Length > 30)
+                {
+                    ModelState.AddModelError(nameof(b.Namen), "Gelieve een geldige naam voor persoon "+(a+1)+" op te geven");
+                }
+                if (string.IsNullOrEmpty(b.Voornamen.ElementAt(a)) || b.Voornamen.ElementAt(a).Length < 3 || b.Voornamen.ElementAt(a).Length > 30)
+                {
+                    ModelState.AddModelError(nameof(b.Voornamen), "Gelieve een geldige voornaam voor persoon "+(a+1)+ " op te geven");
+                }
+            }
 
-            return View(b);
+            if (ModelState.IsValid)
+            {
+
+                var list = ritService.GetAllByCitiesWithDate(b.Vertrekpunt, b.Eindpunt, b.Vertrekdatum);
+
+                b.Ritten = list;
+
+                return View(b);
+            }
+            else
+            {
+                return View("Boeken", b);
+            }
         }
 
         //pagina die bevestiging van boeking toont
@@ -114,12 +139,14 @@ namespace ProjectTreinritten.Controllers
             return View();
         }
 
+        [Authorize]
         //pagina waar men wachtwoord kan opvragen via email indien men deze vergeten is
         public IActionResult Wachtwoord()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult Select(BoekenVM b)
         {
             //if (b == null)

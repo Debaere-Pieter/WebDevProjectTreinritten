@@ -31,6 +31,26 @@ namespace ProjectTreinritten.Repository
             return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId).ToList();
         }
 
+        public IEnumerable<Rit> GetAllByCitiesWithDate(int VertrekId, int EindId, DateTime date)
+        {
+            var list =  _db.VakantieDagen.ToList();
+            List<DateTime> dagen = new List<DateTime>();
+
+            for(int i = 0; i < list.Count; i++)
+            {
+                dagen.Add(list[i].VakantieDag);
+            }
+
+            if (dagen.Contains(date))
+            {
+                return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 2).ToList();
+            }
+            else
+            {
+                return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 1).ToList();
+            }
+        }
+
         public void Update(Rit entity)
         {
             _db.Entry(entity).State = EntityState.Modified;

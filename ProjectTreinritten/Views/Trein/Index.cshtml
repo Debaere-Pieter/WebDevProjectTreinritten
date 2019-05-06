@@ -1,13 +1,11 @@
 ﻿<div id="background-home">
-    <div class="container ">
         <div class="row">
             <div class="col-12">
                 <h1 id="title">Welkom bij het project van Pieter en Gilles!</h1>
             </div>
         </div>
-    </div>
 </div>
-<div class="container">
+
     <div class="row">
         <div class="col-6">
             <a asp-action="Boeken">
@@ -21,12 +19,11 @@
             </a>
         </div>
     </div>
-</div>
 
-<div class="container">
+
     <div class="row">
         <div class="col-4">
-            <a asp-action="Registreer">
+            <a asp-area="Identity" asp-page="/Account/Register">
                 <img class="bannerImg" src="~/images/knop1.png" />
             </a>
         </div>
@@ -41,10 +38,5 @@
             </a>
         </div>
     </div>
-</div>
 
 
-<!--=== Jquery Min Js ===-->
-<script src="~/js/jquery-3.2.1.min.js"></script>
-<!--=== Jquery Migrate Min Js ===-->
-<script src="~/js/jquery-migrate.min.js"></script>

@@ -12,7 +12,8 @@
     <div class="row">
         <div class="col-md-4">
             <form asp-action="KiezenRit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <!--asp-validation-summary="ModelOnly" veranderd naar "All" -->
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Vertrekpunt" class="control-label"></label>
                     <select asp-for="Vertrekpunt" class="form-control" asp-items="ViewBag.StationId" onchange="removeSelectedStation()" id="Vertrekpunt">
@@ -53,104 +54,84 @@
                     <span asp-validation-for="AantalPersonen" class="text-danger"></span>
                 </div>
                 <div class="form-group" id="voornaam1">
-                    <label asp-for="Voornaam1" class="control-label">Voornaam</label>
-                    <input asp-for="Voornaam1" class="form-control" />
-                    <span asp-validation-for="Voornaam1" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam1">
-                    <label asp-for="Naam1" class="control-label">Naam</label>
-                    <input asp-for="Naam1" class="form-control" />
-                    <span asp-validation-for="Naam1" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam2">
-                    <label asp-for="Voornaam2" class="control-label">Voornaam persoon 2</label>
-                    <input asp-for="Voornaam2" class="form-control" />
-                    <span asp-validation-for="Voornaam2" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 2</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam2">
-                    <label asp-for="Naam2" class="control-label">Naam persoon 2</label>
-                    <input asp-for="Naam2" class="form-control" />
-                    <span asp-validation-for="Naam2" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 2</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam3">
-                    <label asp-for="Voornaam3" class="control-label">Voornaam persoon 3</label>
-                    <input asp-for="Voornaam3" class="form-control" />
-                    <span asp-validation-for="Voornaam3" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 3</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam3">
-                    <label asp-for="Naam3" class="control-label">Naam persoon 3</label>
-                    <input asp-for="Naam3" class="form-control" />
-                    <span asp-validation-for="Naam3" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 3</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam4">
-                    <label asp-for="Voornaam4" class="control-label">Voornaam persoon 4</label>
-                    <input asp-for="Voornaam4" class="form-control" />
-                    <span asp-validation-for="Voornaam4" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 4</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam4">
-                    <label asp-for="Naam4" class="control-label">Naam persoon 4</label>
-                    <input asp-for="Naam4" class="form-control" />
-                    <span asp-validation-for="Naam4" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 4</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam5">
-                    <label asp-for="Voornaam5" class="control-label">Voornaam persoon 5</label>
-                    <input asp-for="Voornaam5" class="form-control" />
-                    <span asp-validation-for="Voornaam5" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 5</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam5">
-                    <label asp-for="Naam5" class="control-label">Naam persoon 5</label>
-                    <input asp-for="Naam5" class="form-control" />
-                    <span asp-validation-for="Naam5" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 5</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam6">
-                    <label asp-for="Voornaam5" class="control-label">Voornaam persoon 5</label>
-                    <input asp-for="Voornaam5" class="form-control" />
-                    <span asp-validation-for="Voornaam5" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 5</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam6">
-                    <label asp-for="Naam6" class="control-label">Naam persoon 6</label>
-                    <input asp-for="Naam6" class="form-control" />
-                    <span asp-validation-for="Naam6" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 6</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam7">
-                    <label asp-for="Voornaam7" class="control-label">Voornaam persoon 6</label>
-                    <input asp-for="Voornaam7" class="form-control" />
-                    <span asp-validation-for="Voornaam7" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 6</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam7">
-                    <label asp-for="Naam7" class="control-label">Naam persoon 7</label>
-                    <input asp-for="Naam7" class="form-control" />
-                    <span asp-validation-for="Naam7" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 7</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam8">
-                    <label asp-for="Voornaam8" class="control-label">Voornaam persoon 8</label>
-                    <input asp-for="Voornaam8" class="form-control" />
-                    <span asp-validation-for="Voornaam8" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 8</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam8">
-                    <label asp-for="Naam8" class="control-label">Naam persoon 8</label>
-                    <input asp-for="Naam8" class="form-control" />
-                    <span asp-validation-for="Naam8" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 8</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam9">
-                    <label asp-for="Voornaam9" class="control-label">Voornaam persoon 9</label>
-                    <input asp-for="Voornaam9" class="form-control" />
-                    <span asp-validation-for="Voornaam9" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 9</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam9">
-                    <label asp-for="Naam9" class="control-label">Naam persoon 9</label>
-                    <input asp-for="Naam9" class="form-control" />
-                    <span asp-validation-for="Naam9" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 9</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam10">
-                    <label asp-for="Voornaam10" class="control-label">Voornaam persoon 10</label>
-                    <input asp-for="Voornaam10" class="form-control" />
-                    <span asp-validation-for="Voornaam10" class="text-danger"></span>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 10</label>
+                    <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam10">
-                    <label asp-for="Naam10" class="control-label">Naam persoon 10</label>
-                    <input asp-for="Naam10" class="form-control" />
-                    <span asp-validation-for="Naam10" class="text-danger"></span>
+                    <label asp-for="Namen" class="control-label">Naam persoon 10</label>
+                    <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label asp-for="Vertrekdatum" class="control-label"></label>
@@ -158,11 +139,11 @@
                     <span asp-validation-for="Vertrekdatum" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="HotelNaam" class="control-label">Hotelnaam</label>
-                    <select asp-for="HotelNaam" class="form-control" asp-items="ViewBag.HotelId" id="Hotel">
+                    <label asp-for="HotelId" class="control-label">Hotelnaam</label>
+                    <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId" id="Hotel">
                         <option value="0">Gelieve een hotel te selecteren</option>
                     </select>
-                    <span asp-validation-for="HotelNaam" class="text-danger"></span>
+                    <span asp-validation-for="HotelId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Boeken" class="btn btn-default" />
@@ -172,7 +153,7 @@
     </div>
 </div>
 
-@if (Model != null)
+@*@if (Model != null)
 {
     <table class="table">
         <thead>
@@ -213,7 +194,7 @@
             }
         </tbody>
     </table>
-}
+}*@
 
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -226,7 +207,7 @@
     $(function () {
         $("#datepicker").datepicker({
             minDate: "+2w",
-            dateFormat: "dd-mm-yy",
+            dateFormat: "yy-mm-dd",
         });
 
     });
