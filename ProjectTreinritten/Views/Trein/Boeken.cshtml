@@ -15,30 +15,30 @@
                 <!--asp-validation-summary="ModelOnly" veranderd naar "All" -->
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Vertrekpunt" class="control-label"></label>
+                    <label asp-for="Vertrekpunt" class="control-label">Vertrekpunt*</label>
                     <select asp-for="Vertrekpunt" class="form-control" asp-items="ViewBag.StationId" onchange="removeSelectedStation()" id="Vertrekpunt">
-                        <option value="0">Gelieve een station te selecteren</option>
+                        <option selected disabled value="0">Gelieve een station te selecteren</option>
                     </select>
                     <span asp-validation-for="Vertrekpunt" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Eindpunt" class="control-label"></label>
+                    <label asp-for="Eindpunt" class="control-label">Eindpunt*</label>
                     <select asp-for="Eindpunt" class="form-control" asp-items="ViewBag.StationId" onchange="setHotels()" id="Eindpunt">
-                        <option value="0">Gelieve een station te selecteren</option>
+                        <option selected disabled value="0">Gelieve een station te selecteren</option>
                     </select>
                     <span asp-validation-for="Eindpunt" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Klasse" class="control-label"></label>
+                    <label asp-for="Klasse" class="control-label">Klasse*</label>
                     <select asp-for="Klasse" class="form-control">
-                        <option>Gelieve een klasse te selecteren</option>
+                        <option selected disabled>Gelieve een klasse te selecteren</option>
                         <option value="Economic">Economic</option>
                         <option value="Business">Buisiness</option>
                     </select>
                     <span asp-validation-for="Klasse" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="AantalPersonen" class="control-label">Aantal personen</label>
+                    <label asp-for="AantalPersonen" class="control-label">Aantal personen*</label>
                     <select asp-for="AantalPersonen" class="form-control" id="aantalPersonen" onchange="changeVelden()">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -51,92 +51,90 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                     </select>
-                    <span asp-validation-for="AantalPersonen" class="text-danger"></span>
                 </div>
                 <div class="form-group" id="voornaam1">
-                    <label asp-for="Voornamen" class="control-label">Voornaam</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam1">
-                    <label asp-for="Namen" class="control-label">Naam</label>
+                    <label asp-for="Namen" class="control-label">Naam*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam2">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 2</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 2*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam2">
-                    <label asp-for="Namen" class="control-label">Naam persoon 2</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 2*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam3">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 3</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 3*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam3">
-                    <label asp-for="Namen" class="control-label">Naam persoon 3</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 3*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam4">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 4</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 4*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam4">
-                    <label asp-for="Namen" class="control-label">Naam persoon 4</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 4*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam5">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 5</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 5*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam5">
-                    <label asp-for="Namen" class="control-label">Naam persoon 5</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 5*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam6">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 5</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 5*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam6">
-                    <label asp-for="Namen" class="control-label">Naam persoon 6</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 6*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam7">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 6</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 6*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam7">
-                    <label asp-for="Namen" class="control-label">Naam persoon 7</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 7*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam8">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 8</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 8*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam8">
-                    <label asp-for="Namen" class="control-label">Naam persoon 8</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 8*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam9">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 9</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 9*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam9">
-                    <label asp-for="Namen" class="control-label">Naam persoon 9</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 9*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group" id="voornaam10">
-                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 10</label>
+                    <label asp-for="Voornamen" class="control-label">Voornaam persoon 10*</label>
                     <input asp-for="Voornamen" class="form-control" />
                 </div>
                 <div class="form-group" id="naam10">
-                    <label asp-for="Namen" class="control-label">Naam persoon 10</label>
+                    <label asp-for="Namen" class="control-label">Naam persoon 10*</label>
                     <input asp-for="Namen" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Vertrekdatum" class="control-label"></label>
+                    <label asp-for="Vertrekdatum" class="control-label">Vertrekdatum*</label>
                     <input asp-for="Vertrekdatum" class="form-control" type="text" id="datepicker" />
-                    <span asp-validation-for="Vertrekdatum" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="HotelId" class="control-label">Hotelnaam</label>
@@ -154,101 +152,103 @@
 </div>
 
 @*@if (Model != null)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Ritten)
-                </th>
-                
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Ritten)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VertrekStationId)
-                </td>
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.AankomstStationId)
-                </td>
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.VertrekUur)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AankomstUur)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Duur)
-                </td>
-                
-                <td>
-                    <a asp-action="Select" asp-route-b="@Model">Select</a>                    
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-}*@
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ritten)
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Ritten)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VertrekStationId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AankomstStationId)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VertrekUur)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AankomstUur)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duur)
+                    </td>
+
+                    <td>
+                        <a asp-action="Select" asp-route-b="@Model">Select</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }*@
 
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
-<script src="~/js/jquery-3.2.1.min.js"></script>
-<script src="~/js/jquery-migrate.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(function () {
-        $("#datepicker").datepicker({
-            minDate: "+2w",
-            dateFormat: "yy-mm-dd",
-        });
+@section Scripts {
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/jquery-migrate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                minDate: "+2w",
+                dateFormat: "yy-mm-dd",
+            });
 
-    });
-    const changeVelden = () => {
-        for (let i = 1; i <= $("#aantalPersonen").children("option:selected").val(); i++) {
-            $("#naam" + i).show();
-            $("#voornaam" + i).show();
+        });
+        const changeVelden = () => {
+            for (let i = 1; i <= $("#aantalPersonen").children("option:selected").val(); i++) {
+                $("#naam" + i).show();
+                $("#voornaam" + i).show();
+            }
+            for (let i = 10; i > $("#aantalPersonen").children("option:selected").val(); i--) {
+                $("#naam" + i).hide();
+                $("#voornaam" + i).hide();
+            }
         }
-        for (let i = 10; i > $("#aantalPersonen").children("option:selected").val(); i--) {
-            $("#naam" + i).hide();
-            $("#voornaam" + i).hide();
+        //functie uitvoeren als pagina laad zodat er maar voor één persoon inputvelden zichtbaar zijn
+        changeVelden();
+
+        const removeSelectedStation = () => {
+            $('#Eindpunt option').each(function (index, element) {
+                if (element.value != $("#Vertrekpunt").children("option:selected").val() || element.value == 0) {
+                    element.style.display = "block"
+                }
+                else {
+                    element.style.display = "none"
+                }
+            });
+            $("#Eindpunt").val(0)
         }
-    }
-    //functie uitvoeren als pagina laad zodat er maar voor één persoon inputvelden zichtbaar zijn
-    changeVelden();
 
-    const removeSelectedStation = () => {
-        $('#Eindpunt option').each(function (index, element) {
-            if (element.value != $("#Vertrekpunt").children("option:selected").val() || element.value == 0) {
-                element.style.display = "block"
-            }
-            else {
-                element.style.display = "none"
-            }
-        });
-        $("#Eindpunt").val(0)
+        const setHotels = () => {
+            $('#Hotel option').each(function (index, element) {
+                if (element.value === $("#Eindpunt").children("option:selected").val() || element.value == 0) {
+                    element.style.display = "block"
+                }
+                else {
+                    element.style.display = "none"
+                }
+            });
+            $("#Hotel").val(0)
+        }
+        setHotels();
+    </script>
     }
-
-    const setHotels = () => {
-        $('#Hotel option').each(function (index, element) {
-            if (element.value === $("#Eindpunt").children("option:selected").val() || element.value == 0) {
-                element.style.display = "block"
-            }
-            else {
-                element.style.display = "none"
-            }
-        });
-        $("#Hotel").val(0)
-    }
-    setHotels();
-</script>
 
 
 

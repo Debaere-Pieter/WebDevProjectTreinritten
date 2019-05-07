@@ -20,6 +20,7 @@ namespace ProjectTreinritten.ViewModels
         public IEnumerable<string> Namen { get; set; }
         public IEnumerable<string> Voornamen { get; set; }
         [Required(ErrorMessage = "Gelieve een vertrekdatum op te geven")]
+        [DataType(DataType.Date, ErrorMessage = "Gelieve een datum op te geven in formaat yyyy-mm-dd")]
         public DateTime Vertrekdatum { get; set; }
         public int HotelId { get; set; }
         public IEnumerable<Rit> Ritten { get; set; }

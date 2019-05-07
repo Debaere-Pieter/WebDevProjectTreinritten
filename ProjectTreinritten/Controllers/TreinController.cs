@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BierSQLIdentity.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectTreinritten.Domain.Entities;
@@ -9,6 +10,8 @@ using ProjectTreinritten.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace ProjectTreinritten.Controllers
 {
@@ -53,7 +56,7 @@ namespace ProjectTreinritten.Controllers
         }
 
         //pagina om een boeking te doen
-        [Authorize]
+
         public IActionResult Boeken()
         {
             stationService = new StationService();
@@ -69,7 +72,7 @@ namespace ProjectTreinritten.Controllers
             return View();
         }
 
-        [Authorize]
+        [HttpPost]
         public IActionResult KiezenRit(BoekenVM b)
         {
             if (b == null)
@@ -79,7 +82,25 @@ namespace ProjectTreinritten.Controllers
 
             //System.Diagnostics.Debug.WriteLine("printen in console");
 
-            for(int a =0; a<b.AantalPersonen; a++)
+            if(b.Eindpunt == b.Vertrekpunt)
+            {
+                ModelState.AddModelError(nameof(b.Eindpunt), "Eindpunt en vertrekpunt mogen niet dezelfde waarde hebben");
+            }
+            if (b.Eindpunt == 0)
+            {
+                ModelState.AddModelError(nameof(b.Eindpunt), "Gelieve een eindpunt te selecteren");
+            }
+            if (b.Vertrekpunt == 0)
+            {
+                ModelState.AddModelError(nameof(b.Eindpunt), "Gelieve een eindpunt te selecteren");
+            }
+
+            if (b.Vertrekdatum.Equals(""))
+            {
+                ModelState.AddModelError(nameof(b.Vertrekdatum), "Gelieve een datum op te geven in formaat yyyy - mm - dd");
+            }
+
+            for (int a =0; a<b.AantalPersonen; a++)
             {
                 if(string.IsNullOrEmpty(b.Namen.ElementAt(a)) || b.Namen.ElementAt(a).Length < 3 || b.Namen.ElementAt(a).Length > 30)
                 {
@@ -102,6 +123,16 @@ namespace ProjectTreinritten.Controllers
             }
             else
             {
+                stationService = new StationService();
+                ViewBag.StationId =
+                    new SelectList(stationService.GetAll(),
+                     "StationId", "StationNaam");
+
+                hotelService = new HotelService();
+                ViewBag.HotelId =
+                    new SelectList(hotelService.GetAll(),
+                     "StationId", "HotelNaam");
+
                 return View("Boeken", b);
             }
         }
@@ -142,7 +173,6 @@ namespace ProjectTreinritten.Controllers
             return View();
         }
 
-        [Authorize]
         //pagina waar men wachtwoord kan opvragen via email indien men deze vergeten is
         public IActionResult Wachtwoord()
         {
@@ -174,6 +204,7 @@ namespace ProjectTreinritten.Controllers
 
             if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
             {
+                System.Diagnostics.Debug.WriteLine("Er is een shoppingcart");
                 shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
             }
             else
@@ -187,6 +218,40 @@ namespace ProjectTreinritten.Controllers
 
 
             return RedirectToAction("Index", "ShoppingCart");
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(ContactVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var body = "<p> Email From: " + "{0} ({1}) </p> <p>Message:" +
+                        "</p><p>{2}</p>";
+                    body = string.Format(body, model.JouwNaam, model.JouwEmail, model.Message);
+
+                    EmailSender mail = new EmailSender();
+                    await mail.SendEmailAsync(model.JouwEmail, "contact", body);
+                    return RedirectToAction("Sent");
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            return View(model);
+        }
+
+        public IActionResult Sent()
+        {
+            return View();
         }
     }
 }

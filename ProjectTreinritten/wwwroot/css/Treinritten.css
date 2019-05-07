@@ -59,7 +59,8 @@
     width:auto;
 }
 
-a:hover {
+
+.white:hover {
     color: white;
     text-decoration: underline;
 }
