@@ -35,7 +35,10 @@ namespace ProjectTreinritten.Controllers
 
         //todo's vragen voor de prijs en vragen of we moeten checken of ticketten uniek moeten zijn.
         //overstappen hardcoden of computer laten zoeken
-        //hotelId nullable maken
+        //namen pieter jan navragen
+        //script bieridentity
+        
+
 
         //startpagina met linken naar alle functionaliteiten
         public IActionResult Index()
@@ -149,38 +152,38 @@ namespace ProjectTreinritten.Controllers
         [Authorize]
         public IActionResult Select(BoekenVM b)
         {
-            //if (b == null)
-            //{
-            //    return NotFound();
-            //}
+            if (b == null)
+            {
+                return NotFound();
+            }
 
-            //var id = b.Ritten[0].RitId;
-            //Rit r = ritService.Get(id);
-            //Traject t = trajectService.GetByRit(r);
+            var id = b.GekozenRitId;
+            Rit r = ritService.Get(id);
+            Traject t = trajectService.GetByRit(r);
 
-            //CartVM item = new CartVM
-            //{
-            //    TrajectNr = t.TrajectId,                
-            //    Prijs = 15,
-            //    DateCreated = DateTime.Now,
-            //    Naam = b.Naam1,
-            //    Voornaam = b.Voornaam1
-            //};
+            CartVM item = new CartVM
+            {
+                TrajectNr = t.TrajectId,                
+                Prijs = 15,
+                DateCreated = DateTime.Now,
+                Naam = b.Namen.ElementAt(0),
+                Voornaam = b.Voornamen.ElementAt(0)
+            };
 
-            //ShoppingCartVM shopping;
+            ShoppingCartVM shopping;
 
-            //if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
-            //{
-            //    shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
-            //}
-            //else
-            //{
-            //    shopping = new ShoppingCartVM();
-            //    shopping.Cart = new List<CartVM>();
-            //}
+            if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
+            {
+                shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
+            }
+            else
+            {
+                shopping = new ShoppingCartVM();
+                shopping.Cart = new List<CartVM>();
+            }
 
-            //shopping.Cart.Add(item);
-            //HttpContext.Session.SetObject("ShoppingCart", shopping);
+            shopping.Cart.Add(item);
+            HttpContext.Session.SetObject("ShoppingCart", shopping);
 
 
             return RedirectToAction("Index", "ShoppingCart");

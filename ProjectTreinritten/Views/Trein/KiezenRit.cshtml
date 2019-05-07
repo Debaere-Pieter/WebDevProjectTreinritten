@@ -68,31 +68,33 @@
     <form asp-action="Select">
         <div class="row">
             <div class="col-6">
-                @Model.Vertrekpunt
+                <input asp-for="Vertrekpunt" value="@Model.Vertrekpunt"/>                
             </div>
             <div class="col-6">
-                @Model.Eindpunt
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                @Model.Namen
-            </div>
-            <div class="col-6">
-                @Model.Voornamen
+                <input asp-for="Eindpunt" value="@Model.Eindpunt" />                
             </div>
         </div>
         <div class="row">
             <div class="col-6">
-                @Model.Klasse
+                <!--nog in een foreach lus alle namen overlopen-->
+                <input asp-for="Namen" value="@Model.Namen" />
             </div>
             <div class="col-6">
-                @Model.HotelId
+                <!--nog in een foreach lus alle namen overlopen-->
+                <input asp-for="Voornamen" value="@Model.Voornamen" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <input asp-for="Klasse" value="@Model.Klasse" />                
+            </div>
+            <div class="col-6">
+                <input asp-for="HotelId" value="@Model.HotelId" />                
             </div>
         </div>
         <div>
-            <div id="GekozenRit" class="col-12" style="display:none">
-
+            <div class="col-12" style="display:none">
+                <input id="GekozenRit" asp-for="GekozenRitId" value="" />
             </div>
         </div>
         <input type="submit" id="hiddenKnop" style="display:none" />
@@ -111,7 +113,7 @@
 
 <script>
     const hiddenUpdaten = (a) => {
-        document.getElementById("GekozenRit").innerHTML = a;
+        document.getElementById("GekozenRit").value = a;
         document.getElementById("hiddenKnop").click();
     }
 </script>
