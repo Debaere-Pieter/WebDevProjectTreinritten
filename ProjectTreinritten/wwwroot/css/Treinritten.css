@@ -7,6 +7,7 @@
 /*
     Start CSS Pieter
 */
+
 #logo {
     height: 55px;
 }
@@ -23,10 +24,13 @@
     text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
-.profielfoto{
-    height:400px;
-    width:400px;
-    border-radius:50%;
+.profielfoto {
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bannerImg{
@@ -80,6 +84,18 @@ ul {
     overflow: hidden;
 }
 
+.normalLook {
+    margin-left: 10%;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    color:white;
+}
+
+.normalLook:hover{
+    text-decoration:underline;
+}
+
 li {
     float: right;
 }
@@ -111,6 +127,23 @@ li {
 #banner {
     width: 100%;
     height: auto;
+}
+
+.namen{
+    font-size:30px;
+    text-align:center;
+    padding-top:20px;
+}
+
+.beschrijving{
+    font-size:20px;
+    text-align:center;
+    padding-top:10px;
+}
+
+.headerTxt{
+    text-align:center;
+    padding-bottom:40px;
 }
 /*
     Einde CSS Pieter
