@@ -4,13 +4,13 @@
     ViewData["Title"] = "Contact";
 }
 
-<h2>Contact</h2>
 
-<h4>ContactVM</h4>
-<hr />
-<div class="row">
+<div class="row" style="padding-top:40px">
+    <div class="col-md-4"></div>
     <div class="col-md-4">
         <form asp-action="Contact">
+            <h4>Contact opnemen</h4>
+            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="JouwNaam" class="control-label">Uw naam</label>
@@ -28,10 +28,11 @@
                 <span asp-validation-for="Message" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Verzenden" class="btn btn-default" />
+                <input type="submit" value="Verzenden" class="btn btn-default fancyButton" style="width:100%" />
             </div>
         </form>
     </div>
+    <div class="col-md-4"></div>
 </div>
 
 

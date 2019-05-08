@@ -8,6 +8,19 @@
     Start CSS Pieter
 */
 
+.fancyButton {
+    color: #06183d;
+    background: #fadb00;
+    font-size: 20px;
+    font-weight: bold;
+    width:150px;
+    text-align:center;
+}
+
+    .fancyButton:hover {
+        border: 2px solid #06183d;
+    }
+
 #logo {
     height: 55px;
 }

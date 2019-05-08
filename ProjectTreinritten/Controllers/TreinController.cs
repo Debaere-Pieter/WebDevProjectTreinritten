@@ -179,7 +179,6 @@ namespace ProjectTreinritten.Controllers
             return View();
         }
 
-        [Authorize]
         public IActionResult Select(BoekenVM b)
         {
             if (b == null)
