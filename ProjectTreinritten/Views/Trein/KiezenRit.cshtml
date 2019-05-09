@@ -48,13 +48,13 @@
                     @Html.DisplayFor(modelItem => item.Duur)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AankomstStation.StationNaam)
+                    @Html.DisplayFor(modelItem => item.VertrekStationId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TreinType.TreinTypeId)
+                    @Html.DisplayFor(modelItem => item.TreinTypeId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VertrekStation.StationNaam)
+                    @Html.DisplayFor(modelItem => item.AankomstStationId)
                 </td>
                 <td>
                     <a onclick="hiddenUpdaten(@item.RitId)">Select</a>
@@ -64,14 +64,14 @@
     </tbody>
 </table>
 
-<div class="container">
+<div class="container" style="display:none">
     <form asp-action="Select">
         <div class="row">
             <div class="col-6">
-                <input asp-for="Vertrekpunt" value="@Model.Vertrekpunt"/>                
+                <input asp-for="Vertrekpunt" value="@Model.Vertrekpunt" />
             </div>
             <div class="col-6">
-                <input asp-for="Eindpunt" value="@Model.Eindpunt" />                
+                <input asp-for="Eindpunt" value="@Model.Eindpunt" />
             </div>
         </div>
         <div class="row">
@@ -86,10 +86,10 @@
         </div>
         <div class="row">
             <div class="col-6">
-                <input asp-for="Klasse" value="@Model.Klasse" />                
+                <input asp-for="Klasse" value="@Model.Klasse" />
             </div>
             <div class="col-6">
-                <input asp-for="HotelId" value="@Model.HotelId" />                
+                <input asp-for="HotelId" value="@Model.HotelId" />
             </div>
         </div>
         <div>
@@ -100,20 +100,15 @@
         <input type="submit" id="hiddenKnop" style="display:none" />
     </form>
 </div>
-<script src="~/js/jquery-3.2.1.min.js"></script>
-<script src="~/js/jquery-migrate.min.js"></script>
-<script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
-@*Toevoegen voor tables + sortering*@
-<script>
-    $(document).ready(function () {
-        $('#myTable').DataTable();
-    });
+@section Scripts {
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/jquery-migrate.min.js"></script>
 
-</script>
-
-<script>
-    const hiddenUpdaten = (a) => {
-        document.getElementById("GekozenRit").value = a;
-        document.getElementById("hiddenKnop").click();
-    }
-</script>
+    <script>
+        const hiddenUpdaten = (a) => {
+            console.log("a")
+            document.getElementById("GekozenRit").value = a;
+            document.getElementById("hiddenKnop").click();
+        }
+    </script>
+}

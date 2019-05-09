@@ -7,6 +7,20 @@
 /*
     Start CSS Pieter
 */
+
+.fancyButton {
+    color: #06183d;
+    background: #fadb00;
+    font-size: 20px;
+    font-weight: bold;
+    width:150px;
+    text-align:center;
+}
+
+    .fancyButton:hover {
+        border: 2px solid #06183d;
+    }
+
 #logo {
     height: 55px;
 }
@@ -23,10 +37,13 @@
     text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
-.profielfoto{
-    height:400px;
-    width:400px;
-    border-radius:50%;
+.profielfoto {
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .bannerImg{
@@ -59,7 +76,8 @@
     width:auto;
 }
 
-a:hover {
+
+.white:hover {
     color: white;
     text-decoration: underline;
 }
@@ -77,6 +95,18 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
+}
+
+.normalLook {
+    margin-left: 10%;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    color:white;
+}
+
+.normalLook:hover{
+    text-decoration:underline;
 }
 
 li {
@@ -110,6 +140,23 @@ li {
 #banner {
     width: 100%;
     height: auto;
+}
+
+.namen{
+    font-size:30px;
+    text-align:center;
+    padding-top:20px;
+}
+
+.beschrijving{
+    font-size:20px;
+    text-align:center;
+    padding-top:10px;
+}
+
+.headerTxt{
+    text-align:center;
+    padding-bottom:40px;
 }
 /*
     Einde CSS Pieter

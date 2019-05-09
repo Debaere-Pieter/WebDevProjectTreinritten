@@ -21,7 +21,7 @@
                 <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Trein", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
                     <div class="row">
                         <div class="col-2">
-                            <a asp-action="Index">
+                            <a asp-controller="Trein"  asp-action="Index">
                                 <img src="~/images/logo.png" id="logo" />
                             </a>
                         </div>
@@ -29,13 +29,13 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a><div style="color:white"> <button type="submit">Afmelden</button></div></a>
+                                        <div style="color:white"> <button class="normalLook" type="submit">Afmelden</button></div>
                                     </li>
                                     <li>
-                                        <a><div style="color:white">Mijn account</div></a>
+                                        <a class="white"><div style="color:white">Mijn account</div></a>
                                     </li>
                                     <li>
-                                        <a asp-action="Winkelkar">
+                                        <a asp-controller="Trein" asp-action="Winkelkar">
                                             <img src="~/images/cart.png" id="winkelkar" />
                                         </a>
                                     </li>
@@ -47,8 +47,13 @@
                         <div class="col-12 txt20px" id="bottomNav">
                             <nav>
                                 <ul>
-                                    <li><a asp-action="Boeken"><div>Boeken</div></a></li>
-                                    <li><a asp-action="Over"><div>Over</div></a></li>
+                                    <li><a asp-action="Boeken" ><div class="white">Boeken</div></a></li>
+                                    <li><a asp-action="Over" ><div class="white">Over</div></a></li>
+                                    <li>
+                                        <a asp-controller="Trein" asp-action="Contact"  class="white">
+                                            <div class="white">Contact</div>
+                                        </a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -66,10 +71,10 @@
                     <div class="col-10">
                         <nav>
                             <ul>
-                                <li><a asp-area="Identity" asp-page="/Account/Register"><div>Registreren</div></a></li>
-                                <li><a asp-area="Identity" asp-page="/Account/Login"><div>Aanmelden</div></a></li>
+                                <li><a asp-area="Identity" asp-page="/Account/Register"><div class="white">Registreren</div></a></li>
+                                <li><a asp-area="Identity" asp-page="/Account/Login"><div class="white">Aanmelden</div></a></li>
                                 <li>
-                                    <a asp-action="Winkelkar">
+                                    <a asp-controller="Trein" asp-action="Winkelkar" class="white">
                                         <img src="~/images/cart.png" id="winkelkar" />
                                     </a>
                                 </li>
@@ -81,8 +86,13 @@
                     <div class="col-12 txt20px" id="bottomNav">
                         <nav>
                             <ul>
-                                <li><a asp-action="Boeken"><div>Boeken</div></a></li>
-                                <li><a asp-action="Over"><div>Over</div></a></li>
+                                <li><a asp-controller="Trein" asp-action="Boeken"><div class="white">Boeken</div></a></li>
+                                <li><a asp-controller="Trein" asp-action="Over"><div class="white">Over</div></a></li>
+                                <li>
+                                    <a asp-controller="Trein" asp-action="Contact">
+                                        <div class="white">Contact</div>
+                                    </a>
+                                </li>
                             </ul>
                         </nav>
                     </div>

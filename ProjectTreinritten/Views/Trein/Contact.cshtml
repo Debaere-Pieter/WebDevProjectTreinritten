@@ -1,0 +1,41 @@
+﻿@model ProjectTreinritten.ViewModels.ContactVM
+
+@{
+    ViewData["Title"] = "Contact";
+}
+
+
+<div class="row" style="padding-top:40px">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form asp-action="Contact">
+            <h4>Contact opnemen</h4>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="JouwNaam" class="control-label">Uw naam</label>
+                <input asp-for="JouwNaam" class="form-control" />
+                <span asp-validation-for="JouwNaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="JouwEmail" class="control-label">Uw e-mailadres</label>
+                <input asp-for="JouwEmail" class="form-control" />
+                <span asp-validation-for="JouwEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label">Uw bericht</label>
+                <textarea asp-for="Message" class="form-control"></textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Verzenden" class="btn btn-default fancyButton" style="width:100%" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
