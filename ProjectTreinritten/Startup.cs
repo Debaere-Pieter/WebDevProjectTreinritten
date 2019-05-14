@@ -39,7 +39,7 @@ namespace ProjectTreinritten
             services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
-                options.Cookie.Name = ".Beer.Session";
+                options.Cookie.Name = ".Trein.Session";
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 //standaard is dit 20 minuten ipv van de 60 seconden hier
                 options.IdleTimeout = TimeSpan.FromSeconds(60);
