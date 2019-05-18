@@ -15,14 +15,14 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Vertrekpunt" class="control-label">Vertrekpunt*</label>
-                    <select asp-for="Vertrekpunt" class="form-control" asp-items="ViewBag.StationId" onchange="removeSelectedStation()" id="Vertrekpunt">
+                    <select asp-for="Vertrekpunt" class="form-control" asp-items="ViewBag.StationLijst" onchange="removeSelectedStation()" id="Vertrekpunt">
                         <option selected disabled value="0">Gelieve een station te selecteren</option>
                     </select>
                     <span asp-validation-for="Vertrekpunt" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Eindpunt" class="control-label">Eindpunt*</label>
-                    <select asp-for="Eindpunt" class="form-control" asp-items="ViewBag.StationId" onchange="setHotels()" id="Eindpunt">
+                    <select asp-for="Eindpunt" class="form-control" asp-items="ViewBag.StationLijst" onchange="setHotels()" id="Eindpunt">
                         <option selected disabled value="0">Gelieve een station te selecteren</option>
                     </select>
                     <span asp-validation-for="Eindpunt" class="text-danger"></span>
@@ -32,7 +32,7 @@
                     <select asp-for="Klasse" class="form-control">
                         <option selected disabled>Gelieve een klasse te selecteren</option>
                         <option value="Economic">Economic</option>
-                        <option value="Business">Buisiness</option>
+                        <option value="Business">Business</option>
                     </select>
                     <span asp-validation-for="Klasse" class="text-danger"></span>
                 </div>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="HotelId" class="control-label">Hotelnaam</label>
-                    <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelId" id="Hotel">
+                    <select asp-for="HotelId" class="form-control" asp-items="ViewBag.HotelLijst" id="Hotel">
                         <option value="0">Gelieve een hotel te selecteren</option>
                     </select>
                     <span asp-validation-for="HotelId" class="text-danger"></span>

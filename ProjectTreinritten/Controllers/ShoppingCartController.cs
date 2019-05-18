@@ -7,6 +7,8 @@ using ProjectTreinritten.Extensions;
 using ProjectTreinritten.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProjectTreinritten.Domain.Entities;
+using ProjectTreinritten.Service;
 
 namespace ProjectTreinritten.Controllers
 {
@@ -48,17 +50,39 @@ namespace ProjectTreinritten.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult Payment(List<CartVM> cart)
+        public ActionResult Payment(ShoppingCartVM carts)
         {
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
+            //altijd in een try catch stoppen
             try
             {
-                //call method to save
+                Boeking boeking;
+                BoekingService boekingService = new BoekingService();
+                foreach (CartVM cart in carts.Cart)
+                {
+                    boeking = new Boeking();
+                    
+                    boeking.BoekingsDatum = DateTime.UtcNow;
+                    boeking.VertrekDatum = DateTime.Parse(cart.Vertrekdatum);
+                    boeking.Naam = cart.Naam;
+                    boeking.Voornaam = cart.Voornaam;
+                    boeking.HotelId = cart.HotelId;
+                    boeking.TrajectId = cart.TrajectNr;
+                    boeking.LoginId = userID;
+                    boeking.Klasse = cart.Klasse;
+                    try
+                    {
+                        boekingService.Create(boeking);
+                    } catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex);
+                    }
+                    
+                }
             }
             catch (Exception ex)
             {
-
+                System.Diagnostics.Debug.WriteLine(ex);
             }
             return View();
         }

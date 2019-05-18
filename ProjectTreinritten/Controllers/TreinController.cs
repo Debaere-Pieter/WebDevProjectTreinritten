@@ -60,13 +60,13 @@ namespace ProjectTreinritten.Controllers
 
         public IActionResult Boeken()
         {
-            stationService = new StationService();
-            ViewBag.StationId =
+            
+            ViewBag.StationLijst =
                 new SelectList(stationService.GetAll(),
                  "StationId", "StationNaam");
 
-            hotelService = new HotelService();
-            ViewBag.HotelId =
+            
+            ViewBag.HotelLijst =
                 new SelectList(hotelService.GetAll(),
                  "StationId", "HotelNaam");
 
@@ -116,7 +116,7 @@ namespace ProjectTreinritten.Controllers
             if (ModelState.IsValid)
             {
 
-                var list = ritService.GetAllByCitiesWithDate(b.Vertrekpunt, b.Eindpunt, b.Vertrekdatum);
+                var list = ritService.GetAllByCitiesWithDate(b.Vertrekpunt, b.Eindpunt, DateTime.Parse(b.Vertrekdatum));
 
                 b.Ritten = list;
 
@@ -124,13 +124,13 @@ namespace ProjectTreinritten.Controllers
             }
             else
             {
-                stationService = new StationService();
-                ViewBag.StationId =
+                
+                ViewBag.StationLijst =
                     new SelectList(stationService.GetAll(),
                      "StationId", "StationNaam");
 
-                hotelService = new HotelService();
-                ViewBag.HotelId =
+                
+                ViewBag.HotelLijst =
                     new SelectList(hotelService.GetAll(),
                      "StationId", "HotelNaam");
 
@@ -189,6 +189,7 @@ namespace ProjectTreinritten.Controllers
 
             var id = b.GekozenRitId;
             Rit r = ritService.Get(id);
+            var test = b.Namen;
 
             Traject traject = new Traject
             {
@@ -216,11 +217,13 @@ namespace ProjectTreinritten.Controllers
                 CartVM item = new CartVM
                 {
                     TrajectNr = t.TrajectId,
-                    Naam = b.Namen.ElementAt(i).ToString(),
-                    Voornaam = b.Voornamen.ElementAt(i).ToString(),
+                    Naam = b.Namen.ElementAt(i),
+                    Voornaam = b.Voornamen.ElementAt(i),
                     Prijs = 15,
                     Aantal = 1,
                     HotelId = b.HotelId,
+                    Klasse = b.Klasse,
+                    Vertrekdatum = b.Vertrekdatum,
                     DateCreated = DateTime.Now                    
                 };
 
