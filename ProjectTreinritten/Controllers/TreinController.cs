@@ -189,22 +189,20 @@ namespace ProjectTreinritten.Controllers
 
             var id = b.GekozenRitId;
             Rit r = ritService.Get(id);
-            Traject t = trajectService.GetByRit(r);
 
-            CartVM item = new CartVM
+            Traject traject = new Traject
             {
-                TrajectNr = t.TrajectId,                
-                Prijs = 15,
-                DateCreated = DateTime.Now,
-                Naam = b.Namen.ElementAt(0),
-                Voornaam = b.Voornamen.ElementAt(0)
+                Rit1Id = id
             };
+
+            trajectService.Create(traject);
+
+            Traject t = trajectService.GetByRit(r);
 
             ShoppingCartVM shopping;
 
             if (HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart") != null)
             {
-                System.Diagnostics.Debug.WriteLine("Er is een shoppingcart");
                 shopping = HttpContext.Session.GetObject<ShoppingCartVM>("ShoppingCart");
             }
             else
@@ -213,10 +211,24 @@ namespace ProjectTreinritten.Controllers
                 shopping.Cart = new List<CartVM>();
             }
 
-            shopping.Cart.Add(item);
-            HttpContext.Session.SetObject("ShoppingCart", shopping);
+            for (var i = 0; i < b.Namen.Count(); i++)
+            {
+                CartVM item = new CartVM
+                {
+                    TrajectNr = t.TrajectId,
+                    Naam = b.Namen.ElementAt(i).ToString(),
+                    Voornaam = b.Voornamen.ElementAt(i).ToString(),
+                    Prijs = 15,
+                    Aantal = 1,
+                    HotelId = b.HotelId,
+                    DateCreated = DateTime.Now                    
+                };
 
+                shopping.Cart.Add(item);
 
+                HttpContext.Session.SetObject("ShoppingCart", shopping);
+            }    
+            
             return RedirectToAction("Index", "ShoppingCart");
         }
 
