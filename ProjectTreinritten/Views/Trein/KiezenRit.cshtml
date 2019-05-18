@@ -64,7 +64,7 @@
     </tbody>
 </table>
 
-<div class="container">
+<div class="container" style="display:none">
     <form asp-action="Select">
         <div class="row">
             <div class="col-6">
@@ -75,13 +75,85 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
-                <!--nog in een foreach lus alle namen overlopen-->
-                <input asp-for="Namen" value="@Model.Namen.ElementAt(0)" />
+            <div class="form-group" id="voornaam1">
+                <label asp-for="Voornamen" class="control-label">Voornaam*</label>
+                <input asp-for="Voornamen[0]" class="form-control" />
             </div>
-            <div class="col-6">
-                <!--nog in een foreach lus alle namen overlopen-->
-                <input asp-for="Voornamen" value="@Model.Voornamen.ElementAt(0)" />
+            <div class="form-group" id="naam1">
+                <label asp-for="Namen" class="control-label">Naam*</label>
+                <input asp-for="Namen[0]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam2">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 2*</label>
+                <input asp-for="Voornamen[1]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam2">
+                <label asp-for="Namen" class="control-label">Naam persoon 2*</label>
+                <input asp-for="Namen[1]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam3">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 3*</label>
+                <input asp-for="Voornamen[2]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam3">
+                <label asp-for="Namen" class="control-label">Naam persoon 3*</label>
+                <input asp-for="Namen[2]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam4">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 4*</label>
+                <input asp-for="Voornamen[3]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam4">
+                <label asp-for="Namen" class="control-label">Naam persoon 4*</label>
+                <input asp-for="Namen[3]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam5">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 5*</label>
+                <input asp-for="Voornamen[4]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam5">
+                <label asp-for="Namen" class="control-label">Naam persoon 5*</label>
+                <input asp-for="Namen[4]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam6">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 5*</label>
+                <input asp-for="Voornamen[5]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam6">
+                <label asp-for="Namen" class="control-label">Naam persoon 6*</label>
+                <input asp-for="Namen[5]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam7">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 6*</label>
+                <input asp-for="Voornamen[6]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam7">
+                <label asp-for="Namen" class="control-label">Naam persoon 7*</label>
+                <input asp-for="Namen[6]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam8">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 8*</label>
+                <input asp-for="Voornamen[7]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam8">
+                <label asp-for="Namen" class="control-label">Naam persoon 8*</label>
+                <input asp-for="Namen[7]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam9">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 9*</label>
+                <input asp-for="Voornamen[8]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam9">
+                <label asp-for="Namen" class="control-label">Naam persoon 9*</label>
+                <input asp-for="Namen[8]" class="form-control" />
+            </div>
+            <div class="form-group" id="voornaam10">
+                <label asp-for="Voornamen" class="control-label">Voornaam persoon 10*</label>
+                <input asp-for="Voornamen[9]" class="form-control" />
+            </div>
+            <div class="form-group" id="naam10">
+                <label asp-for="Namen" class="control-label">Naam persoon 10*</label>
+                <input asp-for="Namen[9]" class="form-control" />
             </div>
         </div>
         <div class="row">

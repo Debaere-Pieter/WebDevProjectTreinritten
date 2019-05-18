@@ -25,6 +25,16 @@ namespace ProjectTreinritten.Service
             return ritDAO.Get(id);
         }
 
+        public IEnumerable<Rit> GetAllByArrivalCity(int Id)
+        {
+            return ritDAO.GetAllByArrivalCity(Id);
+        }
+
+        public IEnumerable<Rit> GetAllByDepartCity(int Id)
+        {
+            return ritDAO.GetAllByDepartCity(Id);
+        }
+
         public IEnumerable<Rit> GetAllByCities(int VertrekId, int EindId)
         {
             return ritDAO.GetAllByCities(VertrekId, EindId);

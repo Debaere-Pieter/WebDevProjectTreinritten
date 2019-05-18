@@ -17,13 +17,14 @@ namespace ProjectTreinritten.ViewModels
         public string Klasse { get; set; }
         [Required(ErrorMessage = "Gelieve een aantal personen op te geven")]
         public int AantalPersonen { get; set; }
-        public IEnumerable<string> Namen { get; set; }
-        public IEnumerable<string> Voornamen { get; set; }
+        public List<string> Namen { get; set; }
+        public List<string> Voornamen { get; set; }
         [Required(ErrorMessage = "Gelieve een vertrekdatum op te geven")]
         [DataType(DataType.Date, ErrorMessage = "Gelieve een datum op te geven in formaat yyyy-mm-dd")]
         public string Vertrekdatum { get; set; }
         public int HotelId { get; set; }
         public IEnumerable<Rit> Ritten { get; set; }
+        public List<Traject> Trajecten { get; set; }
         public int GekozenRitId { get; set; }
     }
 }

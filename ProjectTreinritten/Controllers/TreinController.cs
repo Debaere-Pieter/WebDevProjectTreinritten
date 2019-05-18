@@ -101,24 +101,75 @@ namespace ProjectTreinritten.Controllers
                 ModelState.AddModelError(nameof(b.Vertrekdatum), "Gelieve een datum op te geven in formaat yyyy - mm - dd");
             }
 
-            for (int a =0; a<b.AantalPersonen; a++)
+            for (int a = 0; a < b.AantalPersonen; a++)
             {
-                if(string.IsNullOrEmpty(b.Namen.ElementAt(a)) || b.Namen.ElementAt(a).Length < 3 || b.Namen.ElementAt(a).Length > 30)
+                if (string.IsNullOrEmpty(b.Namen[a]) || b.Namen[a].Length < 3 || b.Namen[a].Length > 30)
                 {
-                    ModelState.AddModelError(nameof(b.Namen), "Gelieve een geldige naam voor persoon "+(a+1)+" op te geven");
+                    ModelState.AddModelError(nameof(b.Namen), "Gelieve een geldige naam voor persoon " + (a + 1) + " op te geven");
                 }
-                if (string.IsNullOrEmpty(b.Voornamen.ElementAt(a)) || b.Voornamen.ElementAt(a).Length < 3 || b.Voornamen.ElementAt(a).Length > 30)
+                if (string.IsNullOrEmpty(b.Voornamen[a]) || b.Voornamen[a].Length < 3 || b.Voornamen[a].Length > 30)
                 {
-                    ModelState.AddModelError(nameof(b.Voornamen), "Gelieve een geldige voornaam voor persoon "+(a+1)+ " op te geven");
+                    ModelState.AddModelError(nameof(b.Voornamen), "Gelieve een geldige voornaam voor persoon " + (a + 1) + " op te geven");
                 }
             }
 
             if (ModelState.IsValid)
             {
+                var vertrekpunt = b.Vertrekpunt;
+                var aankomst = b.Eindpunt;
+
 
                 var list = ritService.GetAllByCitiesWithDate(b.Vertrekpunt, b.Eindpunt, DateTime.Parse(b.Vertrekdatum));
+                //als de lijst leeg is wil dit zeggen dat  de route uit meer dan één rit bestaat
+                if (list.Count() == 0)
+                {
+                    var listVertrekRitten = ritService.GetAllByDepartCity(vertrekpunt);
+                    //List<int> listVertrekRitten2 = null;
+                    var listAankomstRitten = ritService.GetAllByArrivalCity(aankomst);
+                    //List<int> listAankomstRitten2 = null;
+                    Boolean gevonden = false;
 
-                b.Ritten = list;
+                    foreach (var item in listVertrekRitten)
+                    {
+                        //listVertrekRitten2.Add(item.AankomstStationId);
+                        foreach (var item2 in listAankomstRitten)
+                        {
+                            //listAankomstRitten2.Add(item.VertrekStationId);
+                            if (item.AankomstStationId == item2.VertrekStationId)
+                            {
+
+                                Traject traject = new Traject
+                                {
+                                    Rit1Id = item.RitId,
+                                    Rit2Id = item2.RitId
+                                };
+
+                                var trajectenList = new List<Traject>();
+                                trajectenList.Add(traject);
+                                b.Trajecten = trajectenList;
+
+                                gevonden = true;
+                                
+                            }
+                        }
+                    }
+
+                    if (!gevonden)
+                    {
+                        
+                    }
+                }
+                else
+                {
+                    //traject bestaat uit één rit
+                    Traject traject = new Traject
+                    {
+                        Rit1Id = list.ElementAt(0).RitId
+                    };
+                    var trajectenList = new List<Traject>();
+                    trajectenList.Add(traject);
+                    b.Trajecten = trajectenList;
+                }
 
                 return View(b);
             }
@@ -214,24 +265,26 @@ namespace ProjectTreinritten.Controllers
 
             for (var i = 0; i < b.Namen.Count(); i++)
             {
-                CartVM item = new CartVM
+                if (b.Namen[i] != null)
                 {
-                    TrajectNr = t.TrajectId,
-                    Naam = b.Namen.ElementAt(i),
-                    Voornaam = b.Voornamen.ElementAt(i),
-                    Prijs = 15,
-                    Aantal = 1,
-                    HotelId = b.HotelId,
-                    Klasse = b.Klasse,
-                    Vertrekdatum = b.Vertrekdatum,
-                    DateCreated = DateTime.Now                    
-                };
+                    CartVM item = new CartVM
+                    {
+                        TrajectNr = t.TrajectId,
+                        Naam = b.Namen.ElementAt(i),
+                        Voornaam = b.Voornamen.ElementAt(i),
+                        Prijs = 15,
+                        Aantal = 1,
+                        HotelId = b.HotelId,
+                        Klasse = b.Klasse,
+                        Vertrekdatum = b.Vertrekdatum,
+                        DateCreated = DateTime.Now
+                    };
 
-                shopping.Cart.Add(item);
+                    shopping.Cart.Add(item);
 
-                HttpContext.Session.SetObject("ShoppingCart", shopping);
-            }    
-            
+                    HttpContext.Session.SetObject("ShoppingCart", shopping);
+                }
+            } 
             return RedirectToAction("Index", "ShoppingCart");
         }
 

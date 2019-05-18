@@ -26,6 +26,16 @@ namespace ProjectTreinritten.Repository
             return _db.Rit.Where(b => b.RitId == id).First();
         }
 
+        public IEnumerable<Rit> GetAllByArrivalCity(int Id)
+        {
+            return _db.Rit.Where(b => b.AankomstStationId == Id).ToList();
+        }
+
+        public IEnumerable<Rit> GetAllByDepartCity(int Id)
+        {
+            return _db.Rit.Where(b => b.VertrekStationId == Id).ToList();
+        }
+
         public IEnumerable<Rit> GetAllByCities(int VertrekId, int EindId)
         {
             return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId).ToList();
