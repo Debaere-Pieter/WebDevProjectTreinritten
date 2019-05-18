@@ -36,5 +36,10 @@ namespace ProjectTreinritten.Service
             boekingDAO.Create(entity);
 
         }
+
+        public IEnumerable<Boeking> GetAllByUser(string id)
+        {
+            return boekingDAO.GetAllByUser(id);
+        }
     }
 }

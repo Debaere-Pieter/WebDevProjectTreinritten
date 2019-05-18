@@ -41,7 +41,7 @@ namespace ProjectTreinritten.Controllers
         //namen pieter jan navragen
         //script bieridentity
         //wisselknop doen
-        
+
 
 
         //startpagina met linken naar alle functionaliteiten
@@ -60,12 +60,12 @@ namespace ProjectTreinritten.Controllers
 
         public IActionResult Boeken()
         {
-            
+
             ViewBag.StationLijst =
                 new SelectList(stationService.GetAll(),
                  "StationId", "StationNaam");
 
-            
+
             ViewBag.HotelLijst =
                 new SelectList(hotelService.GetAll(),
                  "StationId", "HotelNaam");
@@ -83,7 +83,7 @@ namespace ProjectTreinritten.Controllers
 
             //System.Diagnostics.Debug.WriteLine("printen in console");
 
-            if(b.Eindpunt == b.Vertrekpunt)
+            if (b.Eindpunt == b.Vertrekpunt)
             {
                 ModelState.AddModelError(nameof(b.Eindpunt), "Eindpunt en vertrekpunt mogen niet dezelfde waarde hebben");
             }
@@ -117,16 +117,16 @@ namespace ProjectTreinritten.Controllers
             {
                 var vertrekpunt = b.Vertrekpunt;
                 var aankomst = b.Eindpunt;
-
+                var route = new List<Traject>();
 
                 var list = ritService.GetAllByCitiesWithDate(b.Vertrekpunt, b.Eindpunt, DateTime.Parse(b.Vertrekdatum));
                 //als de lijst leeg is wil dit zeggen dat  de route uit meer dan één rit bestaat
                 if (list.Count() == 0)
                 {
                     var listVertrekRitten = ritService.GetAllByDepartCity(vertrekpunt);
-                    //List<int> listVertrekRitten2 = null;
+                    //datecontrole toevoegen
                     var listAankomstRitten = ritService.GetAllByArrivalCity(aankomst);
-                    //List<int> listAankomstRitten2 = null;
+                    //datecontrole toevoegen
                     Boolean gevonden = false;
 
                     foreach (var item in listVertrekRitten)
@@ -137,6 +137,7 @@ namespace ProjectTreinritten.Controllers
                             //listAankomstRitten2.Add(item.VertrekStationId);
                             if (item.AankomstStationId == item2.VertrekStationId)
                             {
+                                //trahect bestaat uit 2 ritten
 
                                 Traject traject = new Traject
                                 {
@@ -146,17 +147,38 @@ namespace ProjectTreinritten.Controllers
 
                                 var trajectenList = new List<Traject>();
                                 trajectenList.Add(traject);
-                                b.Trajecten = trajectenList;
+                                route = trajectenList;
 
                                 gevonden = true;
-                                
+
                             }
                         }
                     }
-
                     if (!gevonden)
                     {
-                        
+                        //indien er nog stteds geen traject is gevonden zal het bestaan uit 2 tussenpunten
+                        foreach (var item in listVertrekRitten)
+                        {
+                            foreach (var item2 in listAankomstRitten)
+                            {
+                                if (ritService.GetAllByCitiesWithDate(item.AankomstStationId, item2.VertrekStationId, DateTime.Parse(b.Vertrekdatum)).Count() != 0)
+                                {
+                                    Traject traject = new Traject
+                                    {
+                                        Rit1Id = item.RitId,
+                                        Rit2Id = ritService.GetAllByCitiesWithDate(item.AankomstStationId, item2.VertrekStationId, DateTime.Parse(b.Vertrekdatum)).ElementAt(0).RitId,
+                                        Rit3Id = item2.RitId
+                                    };
+
+                                    var trajectenList = new List<Traject>();
+                                    trajectenList.Add(traject);
+                                    route = trajectenList;
+
+                                    gevonden = true;
+                                }
+                            }
+                        }
+
                     }
                 }
                 else
@@ -168,19 +190,122 @@ namespace ProjectTreinritten.Controllers
                     };
                     var trajectenList = new List<Traject>();
                     trajectenList.Add(traject);
-                    b.Trajecten = trajectenList;
+                    route = trajectenList;
+                }
+
+
+
+                if (route[0].Rit3Id == null)
+                {
+                    if (route[0].Rit2Id == null)
+                    {
+                        //traject bestaat uit 0 overstappen
+                        Rit r = ritService.Get(route[0].Rit1Id);
+                        var ritten = ritService.GetAllByCitiesWithDate(r.VertrekStationId, r.AankomstStationId, DateTime.Parse(b.Vertrekdatum));
+                        var trajecten = new List<Traject>();
+                        foreach (var rit in ritten)
+                        {
+                            Traject traject = new Traject
+                            {
+                                Rit1Id = rit.RitId
+                            };
+                            foreach (Traject t in trajecten)
+                            {
+                                trajectService.Create(t);
+                            }
+                            trajecten.Add(traject);
+                        };
+                        b.Trajecten = trajecten;
+                    }
+                    else
+                    {
+                        //traject bestaat uit 1 overstap
+                        Rit r = ritService.Get(route[0].Rit1Id);
+                        Rit r1 = ritService.Get(route[0].Rit2Id ?? default(int));
+                        var ritten = ritService.GetAllByCitiesWithDate(r.VertrekStationId, r.AankomstStationId, DateTime.Parse(b.Vertrekdatum));
+                        var trajecten = new List<Traject>();
+                        foreach (var rit in ritten)
+                        {
+                            Rit rit2 = null;
+                            if (ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r1.AankomstUur).Count() > 0)
+                            {
+                                rit2 = ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r1.AankomstUur).ElementAt(0);
+                            }
+                            else
+                            {
+                                rit2 = ritService.GetAllByCitiesWithDate(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum).AddDays(1)).ElementAt(0);
+                            }
+
+                            Traject traject = new Traject
+                            {
+                                Rit1Id = rit.RitId,
+                                Rit2Id = rit2.RitId
+                            };
+                            trajecten.Add(traject);
+                        };
+                        foreach (Traject t in trajecten)
+                        {
+                            trajectService.Create(t);
+                        }
+                        b.Trajecten = trajecten;
+                    }
+
+                }
+                else
+                {
+                    //traject bestaat uit 2 overstappen
+                    Rit r = ritService.Get(route[0].Rit1Id);
+                    Rit r1 = ritService.Get(route[0].Rit2Id ?? default(int));
+                    Rit r2 = ritService.Get(route[0].Rit3Id ?? default(int));
+                    var ritten = ritService.GetAllByCitiesWithDate(r.VertrekStationId, r.AankomstStationId, DateTime.Parse(b.Vertrekdatum));
+                    var trajecten = new List<Traject>();
+                    foreach (var rit in ritten)
+                    {
+                        Rit rit2 = null;
+                        if (ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r.AankomstUur).Count() > 0)
+                        {
+                            rit2 = ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r.AankomstUur).ElementAt(0);
+                        }
+                        else
+                        {
+                            rit2 = ritService.GetAllByCitiesWithDate(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum).AddDays(1)).ElementAt(0);
+                        }
+
+                        Rit rit3 = null;
+                        if (ritService.GetRitByCitiesWithDateAndTime(r2.VertrekStationId, r2.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r1.AankomstUur).Count() > 0)
+                        {
+                            rit3 = ritService.GetRitByCitiesWithDateAndTime(r2.VertrekStationId, r2.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r1.AankomstUur).ElementAt(0);
+                        }
+                        else
+                        {
+                            rit3 = ritService.GetAllByCitiesWithDate(r2.VertrekStationId, r2.AankomstStationId, DateTime.Parse(b.Vertrekdatum).AddDays(1)).ElementAt(0);
+                        }
+
+                        Traject traject = new Traject
+                        {
+                            Rit1Id = rit.RitId,
+                            Rit2Id = rit2.RitId,
+                            Rit3Id = rit3.RitId
+                        };
+                        trajecten.Add(traject);
+                    };
+                    foreach(Traject t in trajecten)
+                    {
+                        trajectService.Create(t);
+                    }
+                    b.Trajecten = trajecten;
                 }
 
                 return View(b);
             }
             else
             {
-                
+
                 ViewBag.StationLijst =
                     new SelectList(stationService.GetAll(),
                      "StationId", "StationNaam");
 
-                
+
                 ViewBag.HotelLijst =
                     new SelectList(hotelService.GetAll(),
                      "StationId", "HotelNaam");
@@ -237,19 +362,7 @@ namespace ProjectTreinritten.Controllers
             {
                 return NotFound();
             }
-
-            var id = b.GekozenRitId;
-            Rit r = ritService.Get(id);
-            var test = b.Namen;
-
-            Traject traject = new Traject
-            {
-                Rit1Id = id
-            };
-
-            trajectService.Create(traject);
-
-            Traject t = trajectService.GetByRit(r);
+            Traject t = trajectService.Get(b.GekozenTrajectId);
 
             ShoppingCartVM shopping;
 
@@ -284,7 +397,7 @@ namespace ProjectTreinritten.Controllers
 
                     HttpContext.Session.SetObject("ShoppingCart", shopping);
                 }
-            } 
+            }
             return RedirectToAction("Index", "ShoppingCart");
         }
 
@@ -306,7 +419,7 @@ namespace ProjectTreinritten.Controllers
                     body = string.Format(body, model.JouwNaam, model.JouwEmail, model.Message);
 
                     EmailSender mail = new EmailSender();
-                    await mail.SendEmailAsync(model.JouwEmail, "contact", body);
+                    await mail.SendEmailAsync("info.tgveurope@gmail.com", "contact", body);
                     return RedirectToAction("Sent");
                 }
                 catch (Exception ex)

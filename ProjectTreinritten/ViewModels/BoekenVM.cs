@@ -25,6 +25,6 @@ namespace ProjectTreinritten.ViewModels
         public int HotelId { get; set; }
         public IEnumerable<Rit> Ritten { get; set; }
         public List<Traject> Trajecten { get; set; }
-        public int GekozenRitId { get; set; }
+        public int GekozenTrajectId { get; set; }
     }
 }

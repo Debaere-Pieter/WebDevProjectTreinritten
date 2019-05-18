@@ -26,6 +26,11 @@ namespace ProjectTreinritten.Repository
             return _db.Boeking.Where(b => b.BoekingId == id).First();
         }
 
+        public IEnumerable<Boeking> GetAllByUser(string id)
+        {
+            return _db.Boeking.Where(b => b.LoginId == id).ToList();
+        }
+
         public void Update(Boeking entity)
         {
             _db.Entry(entity).State = EntityState.Modified;

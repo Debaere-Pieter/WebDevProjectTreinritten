@@ -45,6 +45,11 @@ namespace ProjectTreinritten.Service
             return ritDAO.GetAllByCitiesWithDate(VertrekId, EindId, date);
         }
 
+        public IEnumerable<Rit> GetRitByCitiesWithDateAndTime(int VertrekId, int EindId, DateTime date, TimeSpan tijd)
+        {
+            return ritDAO.GetRitByCitiesWithDateAndTime(VertrekId, EindId, date, tijd);
+        }
+
         public void Update(Rit entity)
         {
             ritDAO.Update(entity);

@@ -14,52 +14,40 @@
     <thead>
         <tr>
             <th>
-                Vertrekuur
+                TrajectId
             </th>
             <th>
-                Aankomstuur
+                RitId1
             </th>
             <th>
-                duur
+                RitId2
             </th>
             <th>
-                AankomstStation
+                RitId3
             </th>
-            <th>
-                Treintype
-            </th>
-            <th>
-                Vertrekstation
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Ritten)
+        @foreach (var item in Model.Trajecten)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VertrekUur)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AankomstUur)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Duur)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VertrekStationId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreinTypeId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AankomstStationId)
-                </td>
-                <td>
-                    <a onclick="hiddenUpdaten(@item.RitId)">Select</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrajectId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rit1Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rit2Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rit3Id)
+            </td>
+
+            <td>
+                <a onclick="hiddenUpdaten(@item.TrajectId)">Select</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -170,10 +158,14 @@
                 <input asp-for="Vertrekdatum" value="@Model.Vertrekdatum" />
             </div>
         </div>
-        
+        <div class="row">
+            <div class="col-3">
+                <input asp-for="Trajecten" value="@Model.Trajecten[0]" />
+            </div>
+        </div>
         <div>
             <div class="col-12" style="display:none">
-                <input id="GekozenRit" asp-for="GekozenRitId" value="" />
+                <input id="GekozenTraject" asp-for="GekozenTrajectId" value="" />
             </div>
         </div>
         <input type="submit" id="hiddenKnop" style="display:none" />
@@ -186,7 +178,7 @@
     <script>
         const hiddenUpdaten = (a) => {
             console.log("a")
-            document.getElementById("GekozenRit").value = a;
+            document.getElementById("GekozenTraject").value = a;
             document.getElementById("hiddenKnop").click();
         }
     </script>

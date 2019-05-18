@@ -25,7 +25,7 @@ namespace BierSQLIdentity.Services
                 {
                     smtp.Port = 587;
                     smtp.EnableSsl = true;
-                    smtp.Credentials = new NetworkCredential("RommelWebDev@gmail.com", "n5XBXSzzp2BZ ");
+                    smtp.Credentials = new NetworkCredential("info.tgveurope@gmail.com", "UwG5GpLO2GNL ");
 
                     await smtp.SendMailAsync(mail);
                 }
