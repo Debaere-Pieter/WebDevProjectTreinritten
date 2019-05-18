@@ -7,6 +7,19 @@
 /*
     Start CSS Pieter
 */
+.mySlides {
+    display: none
+}
+
+.w3-left, .w3-right, .w3-badge {
+    cursor: pointer
+}
+
+.w3-badge {
+    height: 13px;
+    width: 13px;
+    padding: 0
+}
 
 .fancyButton {
     color: #06183d;
@@ -33,7 +46,7 @@
     color: #06183d;
     text-align: center;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 280px;
     text-shadow: 1px 0 0 #fff, -1px 0 0 #fff, 0 1px 0 #fff, 0 -1px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
 }
 
@@ -48,7 +61,6 @@
 
 .bannerImg{
     padding-top:20px;
-    padding-bottom:20px;
     width:100%;
     height:auto;
 }

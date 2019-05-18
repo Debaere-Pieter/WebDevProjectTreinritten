@@ -1,10 +1,130 @@
 ﻿<div id="background-home">
-        <div class="row">
-            <div class="col-12">
-                <h1 id="title">Welkom bij het project van Pieter en Gilles!</h1>
+    <div class="row">
+        <div class="col-12">
+            <h1 id="title">Welkom bij het project van Pieter en Gilles!</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <a asp-action="boeken">
+            <img class="bannerImg" src="~/images/banner1.png" />
+        </a>
+    </div>
+    <div class="col-6">
+        <a asp-action="boeken">
+            <img class="bannerImg" src="~/images/banner2.png" onclick="setDestination(2)" />
+        </a>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-4">
+        <a asp-action="over">
+            <img class="bannerImg" src="~/images/knop1.png" />
+        </a>
+    </div>
+    <div class="col-4">
+        <a asp-action="boeken">
+            <img class="bannerImg" src="~/images/knop2.png" />
+        </a>
+    </div>
+    <div class="col-4">
+        <a asp-action="contact">
+            <img class="bannerImg" src="~/images/knop3.png" />
+        </a>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="w3-content w3-section" style="max-width:100%; padding-top:20px;">
+
+            <a asp-action="boeken"><img class="mySlides" src="~/images/berlijn.jpg" style="width:100%" onclick="setDestination(1)" /> </a>
+            <a asp-action="boeken"><img class="mySlides" src="~/images/londen.jpg" style="width:100%" onclick="setDestination(2)" /> </a>
+            <!--We slaan 3 over omdat dit brussel is en we vertrekken vanaf hier dus kan geen destination zijn-->
+            <a asp-action="boeken"><img class="mySlides" src="~/images/parijs.jpg" style="width:100%" onclick="setDestination(4)" /> </a>
+            <a asp-action="boeken"><img class="mySlides" src="~/images/moskou.jpg" style="width:100%" onclick="setDestination(5)" /> </a>
+            <a asp-action="boeken"><img class="mySlides" src="~/images/amsterdam.jpg" style="width:100%" onclick="setDestination(6)" /> </a>
+            <a asp-action="boeken"><img class="mySlides" src="~/images/rome.jpg" style="width:100%" onclick="setDestination(7)" /> </a>
+            <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(5)"></span>
+                <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(6)"></span>
             </div>
         </div>
+    </div>
 </div>
 
 
 
+
+
+@section Scripts {
+    <script>
+        var slideIndex = 1;
+        
+        const currentDiv = (n) =>{
+            showDivs(slideIndex = n);
+        }
+
+        const showDivs = (n) => {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            if (n > x.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = x.length }
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" w3-white", "");
+            }
+            x[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " w3-white";
+        }
+
+        
+
+        const carousel = () => {
+            if (slideIndex == 7) {
+                slideIndex = 1;
+                var a = slideIndex;
+                showDivs(a)
+            }
+            else {
+                var a = slideIndex;
+                showDivs(a)
+            }
+
+            slideIndex++;
+            setTimeout(carousel, 3000); // Change image every 3 seconds
+        }
+        carousel();
+
+        //window.addEventListener("resize", adjustBackground)
+
+        const adjustBackground = () =>{
+            let screenWidth = window.innerWidth
+            let titleBackground = document.getElementById("background-home");
+            let imageWidth = titleBackground.clientWidth;
+            let negativeMargin = (screenWidth - imageWidth) / 2
+            console.log(negativeMargin)
+            titleBackground.style.marginLeft = "" + -negativeMargin + "px"
+            titleBackground.style.marginRight = "" + -negativeMargin + "px"
+        }
+
+        adjustBackground();
+        showDivs(slideIndex);
+
+        const  setDestination = (n) =>{
+            localStorage.setItem("destinationId", n)
+        }
+    </script>
+    }
