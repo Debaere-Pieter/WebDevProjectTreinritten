@@ -544,5 +544,11 @@ namespace ProjectTreinritten.Controllers
         {
             return View();
         }
+
+        [Route("/CustomErrorPages/404")]
+        public IActionResult PageNotFound()
+        {
+            return View();
+        }
     }
 }

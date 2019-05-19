@@ -42,7 +42,7 @@ namespace ProjectTreinritten
                 options.Cookie.Name = ".Trein.Session";
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 //standaard is dit 20 minuten ipv van de 60 seconden hier
-                options.IdleTimeout = TimeSpan.FromSeconds(60);
+                options.IdleTimeout = TimeSpan.FromSeconds(120);
                 options.Cookie.IsEssential = true;
             });
 
@@ -61,11 +61,13 @@ namespace ProjectTreinritten
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePagesWithRedirects("/CustomErrorPages/{0}");
                 app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error/404");
+                app.UseStatusCodePagesWithRedirects("/CustomErrorPages/{0}");
                 app.UseHsts();
             }
 

@@ -30,6 +30,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Traject)
             </th>
+            <th>
+                Status
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -55,7 +59,26 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrajectId)
-            </td>            
+            </td>  
+            <td>
+                @if (DateTime.Compare(DateTime.UtcNow, item.VertrekDatum) < 0)
+                {                    
+                    <div>
+                        Veel plezier!
+                    </div>
+                }
+                else
+                {                    
+                    <div>
+                        Voltooid!
+                    </div>
+                }
+            </td>
+            <td>
+                <a asp-controller="Historiek" asp-action="Delete" asp-route-boekingNr="@item.BoekingId">
+                    <img src="~/images/delete.png" />
+                </a>
+            </td>
         </tr>
 }
     </tbody>
