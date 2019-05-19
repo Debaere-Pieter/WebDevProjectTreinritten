@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using BierSQLIdentity.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ProjectTreinritten.Areas.Identity.Services;
 
 namespace ProjectTreinritten.Areas.Identity.Pages.Account
 {
@@ -53,14 +55,24 @@ namespace ProjectTreinritten.Areas.Identity.Pages.Account
                     values: new { code },
                     protocol: Request.Scheme);
 
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                try
+                {
+                    var body = "<p> Email From: " + "{0} ({1}) </p> <p>Message:" +
+                        "</p><p>{2}</p>";
+                    body = string.Format(body, Input.Email, "Reset Password", $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
+                    PasswordReset mail = new PasswordReset();
+                    await mail.SendEmailAsync(Input.Email, "Reset Password", body);
+
+
+                   
+                }
+                catch (Exception ex)
+                {
+
+                }
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
-
             return Page();
         }
     }

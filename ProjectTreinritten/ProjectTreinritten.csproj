@@ -16,8 +16,4 @@
     <ProjectReference Include="..\ProjectTreinritten.Service\ProjectTreinritten.Service.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Identity\Services\" />
-  </ItemGroup>
-
 </Project>

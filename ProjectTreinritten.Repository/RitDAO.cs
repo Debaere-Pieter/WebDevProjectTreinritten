@@ -85,11 +85,11 @@ namespace ProjectTreinritten.Repository
 
             if (dagen.Contains(date))
             {
-                return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 2 && tijd< b.VertrekUur).ToList();
+                return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 2 && b.VertrekUur.Hours> tijd.Hours).ToList();
             }
             else
             {
-                return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 1 && tijd < b.VertrekUur).ToList();
+                return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 1 && b.VertrekUur.Hours>tijd.Hours).ToList();
             }
         }
 

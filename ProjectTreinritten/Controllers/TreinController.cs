@@ -224,6 +224,7 @@ namespace ProjectTreinritten.Controllers
                                 trajectService.Create(traject);
                             }
                             trajecten.Add(traject);
+                            b.AlleRitten = ritService.GetAll();
                         };
                         b.Trajecten = trajecten;
                     }
@@ -234,12 +235,14 @@ namespace ProjectTreinritten.Controllers
                         Rit r1 = ritService.Get(route[0].Rit2Id ?? default(int));
                         var ritten = ritService.GetAllByCitiesWithDate(r.VertrekStationId, r.AankomstStationId, DateTime.Parse(b.Vertrekdatum));
                         var trajecten = new List<Traject>();
+
+
                         foreach (var rit in ritten)
                         {
                             Rit rit2 = null;
-                            if (ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r1.AankomstUur).Count() > 0)
+                            if (ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), rit.AankomstUur).Count() > 0)
                             {
-                                rit2 = ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r1.AankomstUur).ElementAt(0);
+                                rit2 = ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), rit.AankomstUur).ElementAt(0);
                             }
                             else
                             {
@@ -267,6 +270,7 @@ namespace ProjectTreinritten.Controllers
                             //einde code gilles
                         };
                         b.Trajecten = trajecten;
+                        b.AlleRitten = ritService.GetAll();
 
                     }
                 }
@@ -281,9 +285,9 @@ namespace ProjectTreinritten.Controllers
                     foreach (var rit in ritten)
                     {
                         Rit rit2 = null;
-                        if (ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r.AankomstUur).Count() > 0)
+                        if (ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), rit.AankomstUur).Count() > 0)
                         {
-                            rit2 = ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r.AankomstUur).ElementAt(0);
+                            rit2 = ritService.GetRitByCitiesWithDateAndTime(r1.VertrekStationId, r1.AankomstStationId, DateTime.Parse(b.Vertrekdatum), rit.AankomstUur).ElementAt(0);
                         }
                         else
                         {
@@ -291,9 +295,9 @@ namespace ProjectTreinritten.Controllers
                         }
 
                         Rit rit3 = null;
-                        if (ritService.GetRitByCitiesWithDateAndTime(r2.VertrekStationId, r2.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r1.AankomstUur).Count() > 0)
+                        if (ritService.GetRitByCitiesWithDateAndTime(r2.VertrekStationId, r2.AankomstStationId, DateTime.Parse(b.Vertrekdatum), rit2.AankomstUur).Count() > 0)
                         {
-                            rit3 = ritService.GetRitByCitiesWithDateAndTime(r2.VertrekStationId, r2.AankomstStationId, DateTime.Parse(b.Vertrekdatum), r1.AankomstUur).ElementAt(0);
+                            rit3 = ritService.GetRitByCitiesWithDateAndTime(r2.VertrekStationId, r2.AankomstStationId, DateTime.Parse(b.Vertrekdatum), rit2.AankomstUur).ElementAt(0);
                         }
                         else
                         {
@@ -318,6 +322,7 @@ namespace ProjectTreinritten.Controllers
                         trajecten.Add(traject);
                     };
                     b.Trajecten = trajecten;
+                    b.AlleRitten = ritService.GetAll();
                 }
 
                 return View(b);

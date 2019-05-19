@@ -20,7 +20,13 @@
                 Vertrekdatum
             </th>
             <th>
+                Vertrekuur
+            </th>
+            <th>
                 Vertrekpunt
+            </th>
+            <th>
+               Aankomstuur
             </th>
             <th>
                 Eindpunt
@@ -28,6 +34,7 @@
             <th>
                 Aantal overstappen
             </th>
+
         </tr>
     </thead>
     <tbody>
@@ -38,7 +45,58 @@
                 @Model.Vertrekdatum
             </td>
             <td>
+                @{ 
+                    foreach(var r in Model.AlleRitten)
+                    {
+                        if(r.RitId == item.Rit1Id)
+                        {
+                            ViewBag.vertrekuur = r.VertrekUur;
+                        }
+                    }
+
+                }
+                @ViewBag.vertrekuur
+            </td>
+            <td>
                 @Model.VertrekpuntNaam
+            </td>
+            <td>
+                @{ 
+                    if (item.Rit2Id == null)
+                    {
+                        foreach (var r in Model.AlleRitten)
+                        {
+                            if (r.RitId == item.Rit1Id)
+                            {
+                                ViewBag.aankomstuur = r.AankomstUur;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(item.Rit3Id == null)
+                        {
+                            foreach (var r in Model.AlleRitten)
+                            {
+                                if (r.RitId == item.Rit2Id)
+                                {
+                                    ViewBag.aankomstuur = r.AankomstUur;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (var r in Model.AlleRitten)
+                            {
+                                if (r.RitId == item.Rit3Id)
+                                {
+                                    ViewBag.aankomstuur = r.AankomstUur;
+                                }
+                            }
+                        }
+                    }
+                }
+                @ViewBag.aankomstuur
             </td>
             <td>
                 @Model.EindpuntNaam
