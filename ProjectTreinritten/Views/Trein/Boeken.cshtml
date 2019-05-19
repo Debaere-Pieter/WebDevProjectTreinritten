@@ -191,8 +191,12 @@
         }
 
         const setHotels = () => {
+            let stationId = $("#Eindpunt").children("option:selected").val(); 
+            hotel1 = ((stationId - 1) * 3) + 1
+            hotel2 = ((stationId - 1) * 3) + 2
+            hotel3 = ((stationId - 1) * 3) + 3
             $('#Hotel option').each(function (index, element) {
-                if (element.value === $("#Eindpunt").children("option:selected").val() || element.value == 0) {
+                if (element.value == hotel1 || element.value == 0 || element.value == hotel2 || element.value == hotel3) {
                     element.style.display = "block"
                 }
                 else {
