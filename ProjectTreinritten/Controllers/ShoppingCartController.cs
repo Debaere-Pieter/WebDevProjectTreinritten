@@ -57,11 +57,20 @@ namespace ProjectTreinritten.Controllers
             try
             {
                 Boeking boeking;
-                BoekingService boekingService = new BoekingService();
+                Zetels zetels; 
+                
+                BoekingService boekingService = new BoekingService();                
+
                 foreach (CartVM cart in carts.Cart)
                 {
                     boeking = new Boeking();
-                    
+
+                    zetels = new Zetels();
+                    zetels.Rit1Zetel = 1;
+                    zetels.Rit2Zetel = 1; 
+                    zetels.Rit3Zetel = 1;
+
+
                     boeking.BoekingsDatum = DateTime.UtcNow;
                     boeking.VertrekDatum = DateTime.Parse(cart.Vertrekdatum);
                     boeking.Naam = cart.Naam;

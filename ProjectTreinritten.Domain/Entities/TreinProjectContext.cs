@@ -29,13 +29,14 @@ namespace ProjectTreinritten.Domain.Entities
         public virtual DbSet<Traject> Traject { get; set; }
         public virtual DbSet<TreinType> TreinType { get; set; }
         public virtual DbSet<VakantieDagen> VakantieDagen { get; set; }
+        public virtual DbSet<Zetels> Zetels { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\SQL_VIVES;Database=TreinProject;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-9K57NLQ\\SQL_VIVES;Database=TreinProject;Trusted_Connection=True;");
             }
         }
 
@@ -178,7 +179,6 @@ namespace ProjectTreinritten.Domain.Entities
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.Boeking)
                     .HasForeignKey(d => d.HotelId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Hotel");
 
                 entity.HasOne(d => d.Login)
@@ -294,6 +294,21 @@ namespace ProjectTreinritten.Domain.Entities
                 entity.HasKey(e => e.VakantieDag);
 
                 entity.Property(e => e.VakantieDag).HasColumnType("date");
+            });
+
+            modelBuilder.Entity<Zetels>(entity =>
+            {
+                entity.HasKey(e => e.ZetelId);
+
+                entity.Property(e => e.ZetelId).HasColumnName("ZetelID");
+
+                entity.Property(e => e.BoekingId).HasColumnName("BoekingID");
+
+                entity.HasOne(d => d.Boeking)
+                    .WithMany(p => p.Zetels)
+                    .HasForeignKey(d => d.BoekingId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Boeking");
             });
         }
     }

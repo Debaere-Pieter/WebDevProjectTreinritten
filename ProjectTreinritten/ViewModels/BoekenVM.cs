@@ -22,7 +22,7 @@ namespace ProjectTreinritten.ViewModels
         [Required(ErrorMessage = "Gelieve een vertrekdatum op te geven")]
         [DataType(DataType.Date, ErrorMessage = "Gelieve een datum op te geven in formaat yyyy-mm-dd")]
         public string Vertrekdatum { get; set; }
-        public int HotelId { get; set; }
+        public int? HotelId { get; set; }
         public IEnumerable<Rit> Ritten { get; set; }
         public List<Traject> Trajecten { get; set; }
         public int GekozenTrajectId { get; set; }

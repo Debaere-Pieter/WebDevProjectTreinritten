@@ -59,5 +59,10 @@ namespace ProjectTreinritten.Service
         {
             ritDAO.Create(entity);
         }
+
+        public TreinType GetTreinTypeRit(int id)
+        {
+            return ritDAO.GetTreinTypeRit(id);
+        }
     }
 }

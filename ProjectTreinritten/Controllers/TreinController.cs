@@ -380,12 +380,51 @@ namespace ProjectTreinritten.Controllers
             {
                 if (b.Namen[i] != null)
                 {
+                    var prijs = 0;
+                    if (t.Rit1Id != 0)
+                    {
+                        var type = ritService.GetTreinTypeRit(t.Rit1Id);
+                        if (b.Klasse.Equals("Economic"))
+                        {
+                            prijs += type.PrijsEconomic;
+                        }else if (b.Klasse.Equals("Business"))
+                        {
+                            prijs += type.PrijsBusiness;
+                        }    
+                    }
+
+                    if (t.Rit2Id != 0)
+                    {
+                        var type = ritService.GetTreinTypeRit((int)t.Rit2Id);
+                        if (b.Klasse.Equals("Economic"))
+                        {
+                            prijs += type.PrijsEconomic;
+                        }
+                        else if (b.Klasse.Equals("Business"))
+                        {
+                            prijs += type.PrijsBusiness;
+                        }
+                    }
+
+                    if (t.Rit3Id != 0)
+                    {
+                        var type = ritService.GetTreinTypeRit((int)t.Rit2Id);
+                        if (b.Klasse.Equals("Economic"))
+                        {
+                            prijs += type.PrijsEconomic;
+                        }
+                        else if (b.Klasse.Equals("Business"))
+                        {
+                            prijs += type.PrijsBusiness;
+                        }
+                    }
+
                     CartVM item = new CartVM
                     {
                         TrajectNr = t.TrajectId,
                         Naam = b.Namen.ElementAt(i),
                         Voornaam = b.Voornamen.ElementAt(i),
-                        Prijs = 15,
+                        Prijs = prijs,
                         Aantal = 1,
                         HotelId = b.HotelId,
                         Klasse = b.Klasse,

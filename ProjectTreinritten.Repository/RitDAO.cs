@@ -92,5 +92,11 @@ namespace ProjectTreinritten.Repository
                 return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 1 && tijd < b.VertrekUur).ToList();
             }
         }
+
+        public TreinType GetTreinTypeRit(int id)
+        {
+            var rit = _db.Rit.Where(b => b.RitId == id).First();
+            return _db.TreinType.Where(b => b.TreinTypeId == rit.TreinTypeId).First();
+        }
     }
 }
