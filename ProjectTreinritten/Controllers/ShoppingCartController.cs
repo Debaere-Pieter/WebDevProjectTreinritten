@@ -92,12 +92,16 @@ namespace ProjectTreinritten.Controllers
                         foreach (Boeking b in boekingen)
                         {
                             Traject TeTestenTraject = trajectService.Get(b.TrajectId);
-                            List<int> ritIDs = new List<int>
-                        {
-                            TeTestenTraject.Rit1Id,
-                            (int)TeTestenTraject.Rit2Id, //indien null zullen ze worden omgezet naar 0
-                            (int)TeTestenTraject.Rit3Id
-                        };
+                            List<int> ritIDs = new List<int>();
+                            ritIDs.Add(TeTestenTraject.Rit1Id);
+                            if (TeTestenTraject.Rit2Id != null)
+                            {
+                                ritIDs.Add((int)TeTestenTraject.Rit2Id);
+                            }
+                            if (TeTestenTraject.Rit3Id != null)
+                            {
+                                ritIDs.Add((int)TeTestenTraject.Rit3Id);
+                            }                            
                             if (ritIDs.Contains(t.Rit1Id))
                             {
                                 HuidigAantalPersonen++;
@@ -128,16 +132,20 @@ namespace ProjectTreinritten.Controllers
                         foreach (Boeking b in boekingen)
                         {
                             Traject TeTestenTraject = trajectService.Get(b.TrajectId);
-                            List<int> ritIDs = new List<int>
-                        {
-                            TeTestenTraject.Rit1Id,
-                            (int)TeTestenTraject.Rit2Id, //indien null zullen ze worden omgezet naar 0
-                            (int)TeTestenTraject.Rit3Id
-                        };
-                            if (ritIDs.Contains((int)t.Rit2Id))
+                            List<int> ritIDs = new List<int>();
+                            ritIDs.Add(TeTestenTraject.Rit1Id);
+                            if (TeTestenTraject.Rit2Id != null)
                             {
-                                HuidigAantalPersonen++;
-                            }
+                                ritIDs.Add((int)TeTestenTraject.Rit2Id);
+                                if (TeTestenTraject.Rit3Id != null)
+                                {
+                                    ritIDs.Add((int)TeTestenTraject.Rit3Id);
+                                }
+                                if (ritIDs.Contains((int)t.Rit2Id))
+                                {
+                                    HuidigAantalPersonen++;
+                                }
+                            }                            
                         }
                         if (HuidigAantalPersonen + 1 <= MaxAantalPersonen)
                         {
@@ -164,16 +172,21 @@ namespace ProjectTreinritten.Controllers
                         foreach (Boeking b in boekingen)
                         {
                             Traject TeTestenTraject = trajectService.Get(b.TrajectId);
-                            List<int> ritIDs = new List<int>
-                        {
-                            TeTestenTraject.Rit1Id,
-                            (int)TeTestenTraject.Rit2Id, //indien null zullen ze worden omgezet naar 0
-                            (int)TeTestenTraject.Rit3Id
-                        };
-                            if (ritIDs.Contains((int)t.Rit3Id))
+                            List<int> ritIDs = new List<int>();
+                            ritIDs.Add(TeTestenTraject.Rit1Id);
+                            if (TeTestenTraject.Rit2Id != null)
                             {
-                                HuidigAantalPersonen++;
+                                ritIDs.Add((int)TeTestenTraject.Rit2Id);
                             }
+                            if (TeTestenTraject.Rit3Id != null)
+                            {
+                                ritIDs.Add((int)TeTestenTraject.Rit3Id);
+                                if (ritIDs.Contains((int)t.Rit3Id))
+                                {
+                                    HuidigAantalPersonen++;
+                                }
+                            }
+                            
                         }
                         if (HuidigAantalPersonen + 1 <= MaxAantalPersonen)
                         {
