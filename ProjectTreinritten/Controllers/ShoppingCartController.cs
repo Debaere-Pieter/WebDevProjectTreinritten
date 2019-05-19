@@ -156,7 +156,7 @@ namespace ProjectTreinritten.Controllers
                         if (HuidigAantalPersonen + 1 <= MaxAantalPersonen)
                         {
                             zetels.Rit2Zetel = HuidigAantalPersonen + 1;
-                        }
+                        }                        
                     }
 
                     if (t.Rit3Id != 0 && t.Rit3Id != null)
@@ -242,7 +242,7 @@ namespace ProjectTreinritten.Controllers
                 System.Diagnostics.Debug.WriteLine(ex);
             }
 
-            return View();
+            return View("Payment");
         }
     }
 }
