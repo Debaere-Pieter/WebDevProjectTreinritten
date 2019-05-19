@@ -176,6 +176,8 @@ namespace ProjectTreinritten.Domain.Entities
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
+                entity.Property(e => e.ZetelId).HasColumnName("ZetelID");
+
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.Boeking)
                     .HasForeignKey(d => d.HotelId)
@@ -192,6 +194,12 @@ namespace ProjectTreinritten.Domain.Entities
                     .HasForeignKey(d => d.TrajectId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Traject");
+
+                entity.HasOne(d => d.Zetel)
+                    .WithMany(p => p.Boeking)
+                    .HasForeignKey(d => d.ZetelId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Zetels");
             });
 
             modelBuilder.Entity<Hotel>(entity =>
@@ -301,14 +309,6 @@ namespace ProjectTreinritten.Domain.Entities
                 entity.HasKey(e => e.ZetelId);
 
                 entity.Property(e => e.ZetelId).HasColumnName("ZetelID");
-
-                entity.Property(e => e.BoekingId).HasColumnName("BoekingID");
-
-                entity.HasOne(d => d.Boeking)
-                    .WithMany(p => p.Zetels)
-                    .HasForeignKey(d => d.BoekingId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Boeking");
             });
         }
     }

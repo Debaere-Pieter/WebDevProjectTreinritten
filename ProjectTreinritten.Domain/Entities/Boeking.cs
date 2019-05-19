@@ -5,11 +5,6 @@ namespace ProjectTreinritten.Domain.Entities
 {
     public partial class Boeking
     {
-        public Boeking()
-        {
-            Zetels = new HashSet<Zetels>();
-        }
-
         public int BoekingId { get; set; }
         public string Klasse { get; set; }
         public DateTime BoekingsDatum { get; set; }
@@ -19,10 +14,11 @@ namespace ProjectTreinritten.Domain.Entities
         public int? HotelId { get; set; }
         public int TrajectId { get; set; }
         public string LoginId { get; set; }
+        public int ZetelId { get; set; }
 
         public Hotel Hotel { get; set; }
         public AspNetUsers Login { get; set; }
         public Traject Traject { get; set; }
-        public ICollection<Zetels> Zetels { get; set; }
+        public Zetels Zetel { get; set; }
     }
 }
