@@ -31,6 +31,11 @@ namespace ProjectTreinritten.Repository
             return _db.Boeking.Where(b => b.LoginId == id).ToList();
         }
 
+        public IEnumerable<Boeking> GetAllByDate(DateTime d)
+        {
+            return _db.Boeking.Where(b => b.VertrekDatum == d);
+        }
+
         public void Update(Boeking entity)
         {
             _db.Entry(entity).State = EntityState.Modified;

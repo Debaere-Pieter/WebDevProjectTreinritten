@@ -20,6 +20,16 @@ namespace ProjectTreinritten.Service
             return boekingDAO.GetAll();
         }
 
+        public IEnumerable<Boeking> GetAllByUser(string id)
+        {
+            return boekingDAO.GetAllByUser(id);
+        }
+
+        public IEnumerable<Boeking> GetAllByDate(DateTime d)
+        {
+            return boekingDAO.GetAllByDate(d);
+        }
+
         public Boeking Get(int id)
         {
             return boekingDAO.Get(id);
@@ -37,9 +47,6 @@ namespace ProjectTreinritten.Service
 
         }
 
-        public IEnumerable<Boeking> GetAllByUser(string id)
-        {
-            return boekingDAO.GetAllByUser(id);
-        }
+       
     }
 }

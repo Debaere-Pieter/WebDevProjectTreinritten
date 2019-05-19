@@ -393,7 +393,7 @@ namespace ProjectTreinritten.Controllers
                         }    
                     }
 
-                    if (t.Rit2Id != 0)
+                    if (t.Rit2Id != 0 && t.Rit2Id != null)
                     {
                         var type = ritService.GetTreinTypeRit((int)t.Rit2Id);
                         if (b.Klasse.Equals("Economic"))
@@ -406,9 +406,9 @@ namespace ProjectTreinritten.Controllers
                         }
                     }
 
-                    if (t.Rit3Id != 0)
+                    if (t.Rit3Id != 0 && t.Rit3Id != null)
                     {
-                        var type = ritService.GetTreinTypeRit((int)t.Rit2Id);
+                        var type = ritService.GetTreinTypeRit((int)t.Rit3Id);
                         if (b.Klasse.Equals("Economic"))
                         {
                             prijs += type.PrijsEconomic;

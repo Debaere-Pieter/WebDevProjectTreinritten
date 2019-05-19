@@ -41,6 +41,6 @@ namespace ProjectTreinritten.Repository
         {
             _db.Entry(entity).State = EntityState.Added;
             _db.SaveChanges();
-        }
+        }        
     }
 }
