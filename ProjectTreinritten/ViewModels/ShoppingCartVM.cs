@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectTreinritten.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,5 +22,8 @@ namespace ProjectTreinritten.ViewModel
         public string Klasse { get; set; }
         public string Vertrekdatum { get; set; }
         public System.DateTime DateCreated { get; set; }
+        public string VertrekPunt { get; set; }
+        public string EindPunt { get; set; }
+        public string Hotel { get; set; }
     }
 }

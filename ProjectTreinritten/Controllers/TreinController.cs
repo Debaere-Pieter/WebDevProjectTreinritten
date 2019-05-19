@@ -68,7 +68,7 @@ namespace ProjectTreinritten.Controllers
 
             ViewBag.HotelLijst =
                 new SelectList(hotelService.GetAll(),
-                 "StationId", "HotelNaam");
+                 "HotelId", "HotelNaam");
 
             return View();
         }
@@ -328,7 +328,7 @@ namespace ProjectTreinritten.Controllers
 
                 ViewBag.HotelLijst =
                     new SelectList(hotelService.GetAll(),
-                     "StationId", "HotelNaam");
+                     "HotelId", "HotelNaam");
 
                 return View("Boeken", b);
             }
@@ -398,6 +398,9 @@ namespace ProjectTreinritten.Controllers
 
             for (var i = 0; i < b.Namen.Count(); i++)
             {
+                string eindPunt = null; //kleine letter om verwarring te voorkomen
+                string vertrekPunt = null;
+                string hotel = ""; // kleine letter om verwarring te vermijden
                 if (b.Namen[i] != null)
                 {
                     var prijs = 0;
@@ -426,9 +429,19 @@ namespace ProjectTreinritten.Controllers
                             prijs += type.PrijsBusiness;
                         }
                     }
+                    else
+                    {
+                        var rit1 = ritService.Get(t.Rit1Id);
+                        var station = stationService.Get(rit1.AankomstStationId);
+                        eindPunt = station.StationNaam;
+                    }
 
                     if (t.Rit3Id != 0 && t.Rit3Id != null)
                     {
+                        var rit3 = ritService.Get((int)t.Rit3Id);
+                        var station = stationService.Get(rit3.AankomstStationId);
+                        eindPunt = station.StationNaam;
+
                         var type = ritService.GetTreinTypeRit((int)t.Rit3Id);
                         if (b.Klasse.Equals("Economic"))
                         {
@@ -439,6 +452,22 @@ namespace ProjectTreinritten.Controllers
                             prijs += type.PrijsBusiness;
                         }
                     }
+                    else if(t.Rit2Id != 0 && t.Rit2Id != null)
+                    {
+                        var rit2 = ritService.Get((int)t.Rit2Id);
+                        var station = stationService.Get(rit2.AankomstStationId);
+                        eindPunt = station.StationNaam;
+                    }
+
+                    var ritVertrek = ritService.Get((int)t.Rit1Id);
+                    var stationVertrek = stationService.Get(ritVertrek.VertrekStationId);
+                    vertrekPunt = stationVertrek.StationNaam;
+                    
+                    if (b.HotelId != null && b.HotelId != 0)
+                    {
+                        var GekozenHotel = hotelService.Get((int)b.HotelId);
+                        hotel = GekozenHotel.HotelNaam;
+                    }                   
 
                     CartVM item = new CartVM
                     {
@@ -450,7 +479,10 @@ namespace ProjectTreinritten.Controllers
                         HotelId = b.HotelId,
                         Klasse = b.Klasse,
                         Vertrekdatum = b.Vertrekdatum,
-                        DateCreated = DateTime.Now
+                        DateCreated = DateTime.Now,
+                        VertrekPunt = vertrekPunt,
+                        EindPunt = eindPunt,
+                        Hotel = hotel
                     };
 
                     shopping.Cart.Add(item);
