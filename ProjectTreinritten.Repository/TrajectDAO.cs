@@ -31,6 +31,21 @@ namespace ProjectTreinritten.Repository
             return _db.Traject.Where(b => b.Rit1Id == r.RitId).First();
         }
 
+        public IEnumerable<Traject> GetTrajecten1Rit(int rit1Id)
+        {
+                return _db.Traject.Where(b => b.Rit1Id == rit1Id && b.Rit2Id == null && b.Rit3Id == null).ToList();
+        }
+
+        public IEnumerable<Traject> GetTrajecten2Rit(int rit1Id, int rit2Id)
+        {
+            return _db.Traject.Where(b => b.Rit1Id == rit1Id && b.Rit2Id == rit2Id && b.Rit3Id == null).ToList();
+        }
+
+        public IEnumerable<Traject> GetTrajecten3Rit(int rit1Id, int rit2Id, int rit3Id)
+        {
+            return _db.Traject.Where(b => b.Rit1Id == rit1Id && b.Rit2Id == rit2Id && b.Rit3Id == rit3Id).ToList();
+        }
+
         public void Update(Traject entity)
         {
             _db.Entry(entity).State = EntityState.Modified;
@@ -41,6 +56,6 @@ namespace ProjectTreinritten.Repository
         {
             _db.Entry(entity).State = EntityState.Added;
             _db.SaveChanges();
-        }        
+        }
     }
 }

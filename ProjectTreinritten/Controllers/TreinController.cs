@@ -209,9 +209,15 @@ namespace ProjectTreinritten.Controllers
                             {
                                 Rit1Id = rit.RitId
                             };
-                            foreach (Traject t in trajecten)
+
+                            if (trajectService.GetTrajecten1Rit(traject.Rit1Id).Count() != 0)
                             {
-                                trajectService.Create(t);
+
+                                traject = trajectService.GetTrajecten1Rit(traject.Rit1Id).ElementAt(0);
+                            }
+                            else
+                            {
+                                trajectService.Create(traject);
                             }
                             trajecten.Add(traject);
                         };
@@ -241,15 +247,24 @@ namespace ProjectTreinritten.Controllers
                                 Rit1Id = rit.RitId,
                                 Rit2Id = rit2.RitId
                             };
-                            trajecten.Add(traject);
-                        };
-                        foreach (Traject t in trajecten)
-                        {
-                            trajectService.Create(t);
-                        }
-                        b.Trajecten = trajecten;
-                    }
+                            if (trajectService.GetTrajecten2Rit(traject.Rit1Id, (int)traject.Rit2Id).Count() != 0)
+                            {
 
+                                traject = trajectService.GetTrajecten2Rit(traject.Rit1Id, (int)traject.Rit2Id).ElementAt(0);
+                            }
+                            else
+                            {
+                                trajectService.Create(traject);
+                            }
+
+                            trajecten.Add(traject);
+
+
+                            //einde code gilles
+                        };
+                        b.Trajecten = trajecten;
+
+                    }
                 }
                 else
                 {
@@ -287,12 +302,17 @@ namespace ProjectTreinritten.Controllers
                             Rit2Id = rit2.RitId,
                             Rit3Id = rit3.RitId
                         };
+                        if (trajectService.GetTrajecten3Rit(traject.Rit1Id, (int)traject.Rit2Id, (int)traject.Rit3Id).Count() != 0)
+                        {
+
+                            traject = trajectService.GetTrajecten3Rit(traject.Rit1Id, (int)traject.Rit2Id, (int)traject.Rit3Id).ElementAt(0);
+                        }
+                        else
+                        {
+                            trajectService.Create(traject);
+                        }
                         trajecten.Add(traject);
                     };
-                    foreach(Traject t in trajecten)
-                    {
-                        trajectService.Create(t);
-                    }
                     b.Trajecten = trajecten;
                 }
 
@@ -387,10 +407,11 @@ namespace ProjectTreinritten.Controllers
                         if (b.Klasse.Equals("Economic"))
                         {
                             prijs += type.PrijsEconomic;
-                        }else if (b.Klasse.Equals("Business"))
+                        }
+                        else if (b.Klasse.Equals("Business"))
                         {
                             prijs += type.PrijsBusiness;
-                        }    
+                        }
                     }
 
                     if (t.Rit2Id != 0 && t.Rit2Id != null)

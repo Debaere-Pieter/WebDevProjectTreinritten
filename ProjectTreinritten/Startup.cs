@@ -43,6 +43,7 @@ namespace ProjectTreinritten
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 //standaard is dit 20 minuten ipv van de 60 seconden hier
                 options.IdleTimeout = TimeSpan.FromSeconds(60);
+                options.Cookie.IsEssential = true;
             });
 
             services.AddDbContext<ApplicationDbContext>(options =>

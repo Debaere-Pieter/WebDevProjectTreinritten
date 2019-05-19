@@ -12,8 +12,8 @@ namespace ProjectTreinritten.Domain.Entities
 
         public int TreinTypeId { get; set; }
         public int CapaciteitBusiness { get; set; }
-        public int PrijsBusiness { get; set; }
         public int CapaciteitEconomic { get; set; }
+        public int PrijsBusiness { get; set; }
         public int PrijsEconomic { get; set; }
 
         public ICollection<Rit> Rit { get; set; }

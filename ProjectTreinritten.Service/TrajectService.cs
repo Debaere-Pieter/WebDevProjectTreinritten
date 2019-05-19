@@ -39,5 +39,22 @@ namespace ProjectTreinritten.Service
         {
             trajectDAO.Create(entity);
         }
+        public IEnumerable<Traject> GetTrajecten1Rit(int rit1Id)
+        {
+            return trajectDAO.GetTrajecten1Rit(rit1Id);
+        }
+
+        public IEnumerable<Traject> GetTrajecten2Rit(int rit1Id, int rit2Id)
+        {
+            return trajectDAO.GetTrajecten2Rit(rit1Id, rit2Id);
+        }
+
+        public IEnumerable<Traject> GetTrajecten3Rit(int rit1Id, int rit2Id, int rit3Id)
+        {
+            return trajectDAO.GetTrajecten3Rit(rit1Id, rit2Id, rit3Id);
+        }
+
+
+
     }
 }
