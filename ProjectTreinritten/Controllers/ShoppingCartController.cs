@@ -208,7 +208,13 @@ namespace ProjectTreinritten.Controllers
                     boeking.VertrekDatum = DateTime.Parse(cart.Vertrekdatum);
                     boeking.Naam = cart.Naam;
                     boeking.Voornaam = cart.Voornaam;
-                    boeking.HotelId = cart.HotelId;
+                    if (cart.HotelId != null && cart.HotelId != 0)
+                    {
+                        boeking.HotelId = cart.HotelId;
+                    } else
+                    {
+                        boeking.HotelId = null;
+                    }                    
                     boeking.TrajectId = cart.TrajectNr;
                     boeking.LoginId = userID;
                     boeking.Klasse = cart.Klasse;
