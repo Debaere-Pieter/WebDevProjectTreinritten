@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ProjectTreinritten.Domain.Entities.Boeking>
+
+@{
+    ViewData["Title"] = "Historiek";
+}
+
+<h2>Historiek</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Klasse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BoekingsDatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VertrekDatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Naam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Voornaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hotel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Traject)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Klasse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoekingsDatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VertrekDatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Voornaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrajectId)
+            </td>            
+        </tr>
+}
+    </tbody>
+</table>

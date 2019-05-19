@@ -52,6 +52,11 @@ namespace ProjectTreinritten.Controllers
         [HttpPost]
         public ActionResult Payment(ShoppingCartVM carts)
         {
+            if (carts == null)
+            {
+                return NotFound();
+            }
+
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             //altijd in een try catch stoppen
             try

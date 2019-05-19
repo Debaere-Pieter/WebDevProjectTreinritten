@@ -10,6 +10,7 @@ using ProjectTreinritten.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -337,14 +338,23 @@ namespace ProjectTreinritten.Controllers
         //pagina die bevestiging van boeking toont
         public IActionResult Bevestiging(BoekingVM b)
         {
+            if (b == null)
+            {
+                return NotFound();
+            }
+
             return View(b);
         }
 
-        //pagina om bestelgeschiedenis te bekijken
+        [Authorize]
         public IActionResult Historiek()
         {
-            return View();
+            string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var list = boekingService.GetAllByUser(userID);
+            return View(list);
         }
+
+        
 
         //pagina om winkelkar te bekijken
         public IActionResult Winkelkar()
@@ -502,6 +512,11 @@ namespace ProjectTreinritten.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Contact(ContactVM model)
         {
+            if (model == null)
+            {
+                return NotFound();
+            }
+
             if (ModelState.IsValid)
             {
                 try
