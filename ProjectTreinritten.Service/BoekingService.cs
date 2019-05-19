@@ -47,6 +47,9 @@ namespace ProjectTreinritten.Service
 
         }
 
-       
+        public void Delete(Boeking entity)
+        {
+            boekingDAO.Delete(entity);
+        }
     }
 }

@@ -47,5 +47,11 @@ namespace ProjectTreinritten.Repository
             _db.Entry(entity).State = EntityState.Added;
             _db.SaveChanges();
         }
+
+        public void Delete(Boeking entity)
+        {
+            _db.Entry(entity).State = EntityState.Deleted;
+            _db.SaveChanges();
+        }
     }
 }

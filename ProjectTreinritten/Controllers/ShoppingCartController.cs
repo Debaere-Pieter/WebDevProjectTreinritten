@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProjectTreinritten.Domain.Entities;
 using ProjectTreinritten.Service;
+using ProjectTreinritten.ViewModels;
 
 namespace ProjectTreinritten.Controllers
 {
@@ -62,15 +63,15 @@ namespace ProjectTreinritten.Controllers
             try
             {
                 Boeking boeking;
-                Zetels zetels; 
-                
+                Zetels zetels;
+
                 BoekingService boekingService = new BoekingService();
                 TrajectService trajectService = new TrajectService();
                 RitService ritService = new RitService();
                 ZetelService zetelService = new ZetelService();
 
                 foreach (CartVM cart in carts.Cart)
-                {
+                {                    
                     boeking = new Boeking();
                     zetels = new Zetels();                    
 
@@ -113,8 +114,8 @@ namespace ProjectTreinritten.Controllers
                             }
                         }
                         if(HuidigAantalPersonen + 1 <= MaxAantalPersonen)
-                        {
-                            zetels.Rit1Zetel = HuidigAantalPersonen + 1;
+                        {                            
+                            zetels.Rit1Zetel = HuidigAantalPersonen + 1;                            
                         }
                     }                    
                     
@@ -155,7 +156,7 @@ namespace ProjectTreinritten.Controllers
                         if (HuidigAantalPersonen + 1 <= MaxAantalPersonen)
                         {
                             zetels.Rit2Zetel = HuidigAantalPersonen + 1;
-                        }
+                        }                        
                     }
 
                     if (t.Rit3Id != 0 && t.Rit3Id != null)
@@ -240,7 +241,8 @@ namespace ProjectTreinritten.Controllers
             {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
-            return View();
+
+            return View("Payment");
         }
     }
 }
