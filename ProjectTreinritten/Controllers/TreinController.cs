@@ -119,6 +119,9 @@ namespace ProjectTreinritten.Controllers
                 var vertrekpunt = b.Vertrekpunt;
                 var aankomst = b.Eindpunt;
                 var route = new List<Traject>();
+                b.VertrekpuntNaam = stationService.Get(b.Vertrekpunt).StationNaam;
+                b.EindpuntNaam = stationService.Get(b.Eindpunt).StationNaam;
+                
 
                 var list = ritService.GetAllByCitiesWithDate(b.Vertrekpunt, b.Eindpunt, DateTime.Parse(b.Vertrekdatum));
                 //als de lijst leeg is wil dit zeggen dat  de route uit meer dan één rit bestaat
