@@ -1,10 +1,13 @@
-﻿@model ProjectTreinritten.ViewModels.BoekenVM
+﻿
+
+@model ProjectTreinritten.ViewModels.BoekenVM
+
 
 @{
-    ViewData["Title"] = "KiezenRit";
+    ViewData["Title"] = "Kies een traject";
 }
 
-<h2>KiezenRit</h2>
+<h2>Kies een traject</h2>
 
 
 
@@ -14,16 +17,16 @@
     <thead>
         <tr>
             <th>
-                TrajectId
+                Vertrekdatum
             </th>
             <th>
-                RitId1
+                Vertrekpunt
             </th>
             <th>
-                RitId2
+                Eindpunt
             </th>
             <th>
-                RitId3
+                Aantal overstappen
             </th>
         </tr>
     </thead>
@@ -32,16 +35,34 @@
         {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TrajectId)
+                @Model.Vertrekdatum
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rit1Id)
+                @Model.VertrekpuntNaam
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rit2Id)
+                @Model.EindpuntNaam
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rit3Id)
+                @{ 
+                    if(item.Rit2Id == null)
+                    {
+                        ViewBag.aantalRitten = 0.ToString();
+                    }
+                    else
+                    {
+                        if(item.Rit3Id == null)
+                        {
+                            ViewBag.aantalRitten = 1.ToString();
+                        }
+                        else
+                        {
+                            ViewBag.aantalRitten = 2.ToString();
+                        }
+
+                    }
+                }
+                @ViewBag.aantalRitten
             </td>
 
             <td>

@@ -26,5 +26,9 @@ namespace ProjectTreinritten.ViewModels
         public IEnumerable<Rit> Ritten { get; set; }
         public List<Traject> Trajecten { get; set; }
         public int GekozenTrajectId { get; set; }
+        public string VertrekpuntNaam { get; set; }
+        public string EindpuntNaam { get; set; }
+        public TimeSpan Vertrekuur { get; set; }
+        public TimeSpan  Aankomstuur { get; set; }
     }
 }
