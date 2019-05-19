@@ -34,14 +34,38 @@
                 </th>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.Cart[0].Aantal)
+                    @Html.DisplayNameFor(model => model.Cart[0].Klasse)
 
                 </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].VertrekPunt)
+
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].EindPunt)
+
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Cart[0].Hotel)
+
+                </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.Cart[0].Prijs)
 
                 </th>
-                <th>
+                <th style="display:none">
+                    @Html.DisplayNameFor(model => model.Cart[0].Aantal)
+
+                </th>
+                <th style="display:none">
+                    @Html.DisplayNameFor(model => model.Cart[0].HotelId)
+
+                </th>
+                <th style="display:none">
                     Subtotaal
                 </th>
             </tr>
@@ -49,7 +73,7 @@
             @for (var i = 0; i < Model.Cart.Count; i++)
             {
             <tr>
-                <!--we willen biernr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
+                <!--we willen trajectnr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
                 @Html.HiddenFor(m => Model.Cart[i].TrajectNr)
                 <td>
                     <input asp-for="@Model.Cart[i].Naam" readonly="readonly" class="form-control" />
@@ -61,7 +85,16 @@
                     <input asp-for="@Model.Cart[i].Vertrekdatum" readonly="readonly" class="form-control" />
                 </td>
                 <td>
-                    <input asp-for="@Model.Cart[i].Aantal" type="number" min="1" max="5" data-aantal=@i />
+                    <input asp-for="@Model.Cart[i].Klasse" readonly="readonly" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].VertrekPunt" readonly="readonly" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].EindPunt" readonly="readonly" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="@Model.Cart[i].Hotel" readonly="readonly" class="form-control" />
                 </td>
                 <td>
                     <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
@@ -71,13 +104,16 @@
                         total += subtotaal;
                     }
                 </td>
+                <td style="display:none">
+                    <input asp-for="@Model.Cart[i].Aantal" type="number" min="1" max="5" data-aantal=@i />
+                </td>
                 <td>
-                    <input id="@("txtSubTotal" + @i)" value="@subtotaal" type="number" readonly="readonly" />
+                    <input asp-for="@Model.Cart[i].HotelId" readonly="readonly" class="form-control" />
                 </td>
                 <td style="display:none">
-                    <input asp-for="@Model.Cart[i].HotelId" readonly="readonly" />
-                    <input asp-for="@Model.Cart[i].Klasse" readonly="readonly" />
+                    <input id="@("txtSubTotal" + @i)" value="@subtotaal" type="number" readonly="readonly" />
                 </td>
+
                 <td>
                     <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-trajectNr="@Model.Cart[i].TrajectNr">
                         <img src="~/images/delete.jpg" />
