@@ -84,6 +84,8 @@ namespace ProjectTreinritten.Controllers
 
             //System.Diagnostics.Debug.WriteLine("printen in console");
 
+
+            //inputcontrole
             if (b.Eindpunt == b.Vertrekpunt)
             {
                 ModelState.AddModelError(nameof(b.Eindpunt), "Eindpunt en vertrekpunt mogen niet dezelfde waarde hebben");
@@ -121,7 +123,7 @@ namespace ProjectTreinritten.Controllers
                 var route = new List<Traject>();
                 b.VertrekpuntNaam = stationService.Get(b.Vertrekpunt).StationNaam;
                 b.EindpuntNaam = stationService.Get(b.Eindpunt).StationNaam;
-                
+                //eerst gaan we de route bepalen, deze houd nog geen rekening met de tijstippen, dit doen we puur voor de route en overstappen.
 
                 var list = ritService.GetAllByCitiesWithDate(b.Vertrekpunt, b.Eindpunt, DateTime.Parse(b.Vertrekdatum));
                 //als de lijst leeg is wil dit zeggen dat  de route uit meer dan één rit bestaat
@@ -197,6 +199,8 @@ namespace ProjectTreinritten.Controllers
                     route = trajectenList;
                 }
 
+
+                //route is bepaald en zal nu aangemaakt worden met de juiste tijdstippen en toegevoegd worden aan de VM
 
 
                 if (route[0].Rit3Id == null)
