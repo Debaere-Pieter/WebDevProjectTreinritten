@@ -50,8 +50,19 @@ namespace ProjectTreinritten.Repository
             {
                 dagen.Add(list[i].VakantieDag);
             }
+            bool extraPlaats = false;
 
-            if (dagen.Contains(date))
+            if (dagen.Contains(date) && (EindId == 2 || EindId == 4) && (date.Month == 11 || date.Month == 12))
+            {
+                extraPlaats = true;
+            }
+            if (dagen.Contains(date) && date.Month == 4 && (EindId == 3 || EindId == 4 || EindId == 6))
+            {
+                extraPlaats = true;
+            }
+
+            //dit op true zetten
+            if (extraPlaats)
             {
                 return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 2).ToList();
             }
@@ -76,6 +87,7 @@ namespace ProjectTreinritten.Repository
         public IEnumerable<Rit> GetRitByCitiesWithDateAndTime(int VertrekId, int EindId, DateTime date, TimeSpan tijd)
         {
             var list = _db.VakantieDagen.ToList();
+
             List<DateTime> dagen = new List<DateTime>();
 
             for (int i = 0; i < list.Count; i++)
@@ -83,7 +95,19 @@ namespace ProjectTreinritten.Repository
                 dagen.Add(list[i].VakantieDag);
             }
 
-            if (dagen.Contains(date))
+            bool extraPlaats = false;
+
+            if(dagen.Contains(date) && (EindId == 2 || EindId == 4) && (date.Month ==11 || date.Month == 12))
+            {
+                extraPlaats = true;
+            }
+            if(dagen.Contains(date) && date.Month == 4 && (EindId == 3 || EindId == 4 || EindId == 6))
+            {
+                extraPlaats = true;
+            }
+
+            //dit op true zetten
+            if (extraPlaats)
             {
                 return _db.Rit.Where(b => b.VertrekStationId == VertrekId && b.AankomstStationId == EindId && b.TreinTypeId == 2 && b.VertrekUur.Hours> tijd.Hours).ToList();
             }

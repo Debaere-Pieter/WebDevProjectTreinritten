@@ -223,6 +223,40 @@ namespace ProjectTreinritten.Controllers
                             {
                                 trajectService.Create(traject);
                             }
+                            //code gilles
+                            //Rit rit1 = ritService.Get(traject.Rit1Id);
+                            //TreinType treinType1 = treinTypeService.Get(rit1.TreinTypeId);
+                            //int MaxAantalPersonen = 0;
+                            //int HuidigAantalPersonen = 0;
+                            //if (b.Klasse.Equals("Economic"))
+                            //{
+                            //    MaxAantalPersonen = treinType1.CapaciteitEconomic;
+
+                            //}
+                            //else if (b.Klasse.Equals("Business"))
+                            //{
+                            //    MaxAantalPersonen = treinType1.CapaciteitBusiness;
+                            //}
+
+                            //var boekingen = boekingService.GetAllByDate(DateTime.Parse(b.Vertrekdatum));
+                            //Traject TeTestenTraject = traject;
+                            //List<int> ritIDs = new List<int>();
+                            //ritIDs.Add(TeTestenTraject.Rit1Id);
+                            //if (TeTestenTraject.Rit2Id != null)
+                            //{
+                            //    ritIDs.Add((int)TeTestenTraject.Rit2Id);
+                            //}
+                            //if (TeTestenTraject.Rit3Id != null)
+                            //{
+                            //    ritIDs.Add((int)TeTestenTraject.Rit3Id);
+                            //    if (ritIDs.Contains((int)t.Rit3Id))
+                            //    {
+                            //        HuidigAantalPersonen++;
+                            //    }
+                            //}
+                            //code gilles
+
+
                             trajecten.Add(traject);
                             b.AlleRitten = ritService.GetAll();
                         };
