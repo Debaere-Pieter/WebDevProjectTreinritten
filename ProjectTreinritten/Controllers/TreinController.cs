@@ -391,6 +391,9 @@ namespace ProjectTreinritten.Controllers
         [Authorize]
         public IActionResult Historiek()
         {
+            ViewBag.Ritten = ritService.GetAll().ToList();
+            ViewBag.Stations = stationService.GetAll().ToList();
+            ViewBag.Trajecten = trajectService.GetAll().ToList();
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var list = boekingService.GetAllByUser(userID);
             ViewBag.alleHotels = hotelService.GetAll();

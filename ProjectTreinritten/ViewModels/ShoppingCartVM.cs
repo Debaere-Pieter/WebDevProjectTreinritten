@@ -9,6 +9,7 @@ namespace ProjectTreinritten.ViewModel
     public class ShoppingCartVM
     {
         public List<CartVM> Cart { get; set; }
+
     }
 
     public class CartVM
@@ -28,5 +29,6 @@ namespace ProjectTreinritten.ViewModel
         public int? Zetel1 { get; set; }
         public int? Zetel2 { get; set; }
         public int? Zetel3 { get; set; }
+      
     }
 }

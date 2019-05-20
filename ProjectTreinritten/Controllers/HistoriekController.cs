@@ -13,11 +13,13 @@ namespace ProjectTreinritten.Controllers
         private BoekingService boekingService;
         public HistoriekController()
         {
+            //nieuw boekingservice object aanmaken
             boekingService = new BoekingService();
         }
 
         public IActionResult Delete(int? boekingNr)
         {
+            //boekingNr mag niet null zijn
             if (boekingNr == null)
             {
                 return NotFound();
@@ -27,6 +29,8 @@ namespace ProjectTreinritten.Controllers
 
             DateTime Vandaag = DateTime.UtcNow;
             DateTime DrieDagenVoorVertrek = b.VertrekDatum.AddDays(-3);
+
+            //boeking verwijderen indien deze niet 3 dagen voor vertrek is.
 
             if (DateTime.Compare(Vandaag, DrieDagenVoorVertrek) < 0 )
             {                

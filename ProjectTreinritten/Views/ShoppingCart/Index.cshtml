@@ -72,63 +72,62 @@
             @{ float total = 0;}
             @for (var i = 0; i < Model.Cart.Count; i++)
             {
-            <tr>
-                <!--we willen trajectnr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
-                @Html.HiddenFor(m => Model.Cart[i].TrajectNr)
-                <td>
-                    <input asp-for="@Model.Cart[i].Naam" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].Voornaam" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].Vertrekdatum" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].Klasse" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].VertrekPunt" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].EindPunt" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].Hotel" readonly="readonly" class="form-control" />
-                </td>
-                <td>
-                    <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
+                <tr>
+                    <!--we willen trajectnr wel binnenkrijgen dus moeten we het ergens hidden zetten-->
+                    @Html.HiddenFor(m => Model.Cart[i].TrajectNr)
+                    <td>
+                        <input asp-for="@Model.Cart[i].Naam" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Voornaam" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Vertrekdatum" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Klasse" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].VertrekPunt" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].EindPunt" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Hotel" readonly="readonly" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="@Model.Cart[i].Prijs" type="number" readonly="readonly" />
 
-                    @{
-                        var subtotaal = Model.Cart[i].Prijs * Model.Cart[i].Aantal;
-                        total += subtotaal;
-                    }
-                </td>
-                <td style="display:none">
-                    <input asp-for="@Model.Cart[i].Aantal" type="number" min="1" max="5" data-aantal=@i />
-                </td>
-                <td style="display:none">
-                    <input asp-for="@Model.Cart[i].HotelId" readonly="readonly" class="form-control" />
-                </td>
-                <td style="display:none">
-                    <input id="@("txtSubTotal" + @i)" value="@subtotaal" type="number" readonly="readonly" />
-                </td>
+                        @{
+                            var subtotaal = Model.Cart[i].Prijs * Model.Cart[i].Aantal;
+                            total += subtotaal;
+                        }
+                    </td>
+                    <td style="display:none">
+                        <input asp-for="@Model.Cart[i].Aantal" type="number" min="1" max="5" data-aantal=@i />
+                    </td>
+                    <td style="display:none">
+                        <input asp-for="@Model.Cart[i].HotelId" readonly="readonly" class="form-control" />
+                    </td>
+                    <td style="display:none">
+                        <input id="@("txtSubTotal" + @i)" value="@subtotaal" type="number" readonly="readonly" />
+                    </td>
 
-                <td>
-                    <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-trajectNr="@Model.Cart[i].TrajectNr">
-                        <img src="~/images/delete.png" />
-                    </a>
-                </td>
-            </tr>
+                    <td>
+                        <a asp-controller="ShoppingCart" asp-action="Delete" asp-route-trajectNr="@Model.Cart[i].TrajectNr">
+                            <img src="~/images/delete.png" />
+                        </a>
+                    </td>
+                </tr>
             }
-
-            <tr>
-                <td> <input type="submit" value="Checkout" class="btn btn-default" /></td>
-            </tr>
             <tr>
                 <td id="cart-total">
                     Total <input id="txtTotal" value="@total" type="number" readonly="readonly" />
                 </td>
+            </tr>
+            <tr>
+                <td> <input type="submit" value="Checkout" class="btn btn-default fancyButton" /></td>
             </tr>
         </table>
     </form>
@@ -137,43 +136,17 @@ else
 { @Html.Raw("Your shoppingcart is empty at the moment")
 }
 
-
-<a asp-controller="Trein"
-   asp-action="boeken">
-    <!--Dit moet hier ipv index boeken worden wanneer we die view hebben-->
-    Continue
-</a>
-
+    <div>
+        <a asp-controller="Trein"
+           asp-action="boeken">
+            <!--Dit moet hier ipv index boeken worden wanneer we die view hebben-->
+            <input value="Continue" class="btn btn-default fancyButton" />
+        </a>
+    </div>
 
 
 @section Scripts {
-    <script>
-        //de naam mag hier blanco blijven, wnat we roepen het nergens aan
-        //$(() => {
-        //    //selecteer alle input elementen die eindigen met aantal
-        //    $("[id$=Aantal]").on('change', (e) => {
-        //        console.log("change");
-        //        let number = $(e.currentTarget).data("aantal"); //hoeveelste element het is en daarvan wil ik het data attribuut aantal(zie regel 51 hierboven, waar we het aantal input veld maken)
 
-        //        let selectorPrice = "Cart_" + number + "__Prijs";
-        //        let price = $("#" + selectorPrice).val(); //# is voor id
-        //        //we hebben voor alle subtotalen een unieke id gemaakt (we hebben als id txtsubtotaal + een nummer (i)) dus we kunnen dat nu in het juiste subtotaal gaan instellen
-        //        let selector = "txtSubTotal" + number;
-        //        console.log($(e.currentTarget).val() * price);
-        //        $('#' + selector).val($(e.currentTarget).val() * price);
-
-        //        var sum = 0;
-        //        $('[id^=txtSubTotal]').each((e) => { //betekent selecteer alle subtotalen en doorloop ze
-        //            console.log(e.currentTarget.value);
-        //            if (!isNaN(e.currentTarget.value) && e.currentTarget.value.length != 0) {
-
-        //                sum += parseFloat(e.currentTarget.value);
-        //            }
-        //        });
-        //        $('#txtTotal').val(sum);
-        //    });
-        //});
-    </script>
     }
 
 

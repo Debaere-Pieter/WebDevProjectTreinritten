@@ -28,7 +28,10 @@
                 @Html.DisplayNameFor(model => model.Hotel)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Traject)
+                Vertrekstation
+            </th>
+            <th>
+                Eindstation
             </th>
             <th>
                 Status
@@ -37,60 +40,148 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
-{
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Klasse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BoekingsDatum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VertrekDatum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Voornaam)
-            </td>
-            <td>
-                @{
-                    var hotels = ViewBag.alleHotels;
-                    foreach(var hotel in hotels)
-                    {
-                        if(hotel.HotelId == item.HotelId)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Klasse)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BoekingsDatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VertrekDatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Voornaam)
+                </td>
+                <td>
+                    @{
+                        var hotels = ViewBag.alleHotels;
+                        foreach (var hotel in hotels)
                         {
-                            ViewBag.hotelNaam = hotel.HotelNaam;
+                            if (hotel.HotelId == item.HotelId)
+                            {
+                                ViewBag.hotelNaam = hotel.HotelNaam;
+                            }
                         }
                     }
-                }
-                @ViewBag.hotelNaam
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrajectId)
-            </td>  
-            <td>
-                @if (DateTime.Compare(DateTime.UtcNow, item.VertrekDatum) < 0)
-                {                    
-                    <div>
-                        Veel plezier!
-                    </div>
-                }
-                else
-                {                    
-                    <div>
-                        Voltooid!
-                    </div>
-                }
-            </td>
-            <td>
-                <a asp-controller="Historiek" asp-action="Delete" asp-route-boekingNr="@item.BoekingId">
-                    <img src="~/images/delete.png" />
-                </a>
-            </td>
-        </tr>
-}
+                    @ViewBag.hotelNaam
+                </td>
+                <td>
+                    @{
+                        foreach (var traject in ViewBag.Trajecten)
+                        {
+                            if (traject.TrajectId == item.TrajectId)
+                            {
+
+                                foreach (var rit in ViewBag.Ritten)
+                                {
+                                    if (rit.RitId == traject.Rit1Id)
+                                    {
+                                        foreach (var station in ViewBag.Stations)
+                                        {
+                                            if (rit.VertrekStationId == station.StationId)
+                                            {
+                                                ViewBag.Vertrekpunt = station.StationNaam;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    @ViewBag.Vertrekpunt
+                </td>
+                <td>
+                    @{
+                        foreach (var traject in ViewBag.Trajecten)
+                        {
+                            if (traject.TrajectId == item.TrajectId)
+                            {
+                                if (traject.Rit2Id == null)
+                                {
+                                    foreach (var rit in ViewBag.Ritten)
+                                    {
+
+                                        if (rit.RitId == traject.Rit1Id)
+                                        {
+                                            foreach (var station in ViewBag.Stations)
+                                            {
+                                                if (rit.AankomstStationId == station.StationId)
+                                                {
+                                                    ViewBag.Eindpunt = station.StationNaam;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    if (traject.Rit3Id == null)
+                                    {
+                                        foreach (var rit in ViewBag.Ritten)
+                                        {
+
+                                            if (rit.RitId == traject.Rit2Id)
+                                            {
+                                                foreach (var station in ViewBag.Stations)
+                                                {
+                                                    if (rit.AankomstStationId == station.StationId)
+                                                    {
+                                                        ViewBag.Eindpunt = station.StationNaam;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var rit in ViewBag.Ritten)
+                                        {
+
+                                            if (rit.RitId == traject.Rit3Id)
+                                            {
+                                                foreach (var station in ViewBag.Stations)
+                                                {
+                                                    if (rit.AankomstStationId == station.StationId)
+                                                    {
+                                                        ViewBag.Eindpunt = station.StationNaam;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    @ViewBag.Eindpunt
+                </td>
+                <td>
+                    @if (DateTime.Compare(DateTime.UtcNow, item.VertrekDatum) < 0)
+                    {
+                        <div>
+                            Veel plezier!
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            Voltooid!
+                        </div>
+                    }
+                </td>
+                <td>
+                    <a asp-controller="Historiek" asp-action="Delete" asp-route-boekingNr="@item.BoekingId">
+                        <img src="~/images/delete.png" />
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

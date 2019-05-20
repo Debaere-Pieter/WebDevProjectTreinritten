@@ -150,22 +150,20 @@
     </div>
 </div>
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
 @section Scripts {
-    <script src="~/js/jquery-3.2.1.min.js"></script>
-    <script src="~/js/jquery-migrate.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script>
         $(function () {
             $("#datepicker").datepicker({
+                //minDate = 0 zodat men geen datum van het verleden kan selecteren
                 minDate: "+0w",
+                //maxDate mag maximum 2 weken in de toekomst liggen
                 maxDate: "+2w",
                 dateFormat: "yy-mm-dd",
             });
 
         });
+        //deze functie zorgt ervoor dat er meer of minder inpuntvelden komen als aantalPersonen wijzigt
         const changeVelden = () => {
             for (let i = 1; i <= $("#aantalPersonen").children("option:selected").val(); i++) {
                 $("#naam" + i).show();
@@ -176,8 +174,6 @@
                 $("#voornaam" + i).hide();
             }
         }
-        //functie uitvoeren als pagina laad zodat er maar voor één persoon inputvelden zichtbaar zijn
-        changeVelden();
 
         const removeSelectedStation = () => {
             $('#Eindpunt option').each(function (index, element) {
@@ -206,19 +202,25 @@
             });
             $("#Hotel").val(0)
         }
-        setHotels();
+
 
         const setDestination = () => {
             if (localStorage.getItem("destinationId") != null) {
+                //vertrekken vanuit Brussel
                 $("#Vertrekpunt").val(3)
                 removeSelectedStation()
+                //naar locatie die opgeslagen in in localStorage
                 $("#Eindpunt").val(parseInt(localStorage.getItem("destinationId")))
                 setHotels()
                 localStorage.removeItem("destinationId")
             }
         }
-
+        //indien er een destinationId in localStorage zit zal deze ingeladen worden
         window.addEventListener("load", setDestination())
+        //hotels instellen voor  de destination indien deze al ingevuld is 
+        window.addEventListener("load", setHotels())
+           //deze functie zorgt ervoor dat er maar 1 inputveld zichtbaar is als de pagina inlaad.
+        window.addEventListener("load", changeVelden())
     </script>
     }
 

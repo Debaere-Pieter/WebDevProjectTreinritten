@@ -16,7 +16,26 @@ using ProjectTreinritten.Services;
 namespace ProjectTreinritten.Controllers
 {
     public class ShoppingCartController : Controller
+
     {
+        private BoekingService boekingService;
+        private HotelService hotelService;
+        private RitService ritService;
+        private StationService stationService;
+        private TrajectService trajectService;
+        private TreinTypeService treinTypeService;
+        private VakantieDagenService vakantieDagenService;
+
+        public ShoppingCartController()
+        {
+            boekingService = new BoekingService();
+            hotelService = new HotelService();
+            ritService = new RitService();
+            stationService = new StationService();
+            trajectService = new TrajectService();
+            treinTypeService = new TreinTypeService();
+            vakantieDagenService = new VakantieDagenService();
+        }
         public IActionResult Index()
         {
             //code om het gebruik van generic classes uit te leggen
@@ -293,6 +312,9 @@ namespace ProjectTreinritten.Controllers
             }
 
             //mail
+            ViewBag.Ritten = ritService.GetAll().ToList();
+            ViewBag.Stations = stationService.GetAll().ToList();
+            ViewBag.Trajecten = trajectService.GetAll().ToList();
 
             return View("Payment", carts);
         }

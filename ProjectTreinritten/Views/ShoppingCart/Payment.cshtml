@@ -10,26 +10,108 @@
 <div class="row">
     <div class="col-12">
         <div>
-            Bedankt om te boeken! Hieronder vind u de zetel nummers per rit
+            <b> Bedankt om te boeken! Hieronder vind u de zetel nummers per rit</b>
         </div>
         @foreach (var item in Model.Cart)
         {
-            <div class="row">
+            <div>
                 Naam: @item.Naam
-                VoorNaam: @item.Voornaam
+            </div>
+            <div>
+                Voornaam: @item.Voornaam
             </div>
             if (item.Zetel1.HasValue)
             {
-                <p> Uw zetelnummer voor rit 1 is @item.Zetel1</p>
+                foreach(var traject in ViewBag.Trajecten)
+                {
+                    if(traject.TrajectId == item.TrajectNr)
+                    {
+                        foreach(var rit in ViewBag.Ritten)
+                        {
+                            if(rit.RitId == traject.Rit1Id)
+                            {
+                                foreach(var station in ViewBag.Stations)
+                                {
+                                    if(rit.VertrekStationId == station.StationId)
+                                    {
+                                        ViewBag.Vertrekstation1 = station.StationNaam;
+                                    }
+                                    if (rit.AankomstStationId == station.StationId)
+                                    {
+                                        ViewBag.Aankomststation1 = station.StationNaam;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             if (item.Zetel2.HasValue)
             {
-                <p> Uw zetelnummer voor rit 2 is @item.Zetel2</p>
+                foreach (var traject in ViewBag.Trajecten)
+                {
+                    if (traject.TrajectId == item.TrajectNr)
+                    {
+                        foreach (var rit in ViewBag.Ritten)
+                        {
+                            if (rit.RitId == traject.Rit2Id)
+                            {
+                                foreach (var station in ViewBag.Stations)
+                                {
+                                    if (rit.VertrekStationId == station.StationId)
+                                    {
+                                        ViewBag.Vertrekstation2 = station.StationNaam;
+                                    }
+                                    if (rit.AankomstStationId == station.StationId)
+                                    {
+                                        ViewBag.Aankomststation2 = station.StationNaam;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
             if (item.Zetel3.HasValue)
             {
-                <p> Uw zetelnummer voor rit 3 is @item.Zetel3</p>
+                foreach (var traject in ViewBag.Trajecten)
+                {
+                    if (traject.TrajectId == item.TrajectNr)
+                    {
+                        foreach (var rit in ViewBag.Ritten)
+                        {
+                            if (rit.RitId == traject.Rit3Id)
+                            {
+                                foreach (var station in ViewBag.Stations)
+                                {
+                                    if (rit.VertrekStationId == station.StationId)
+                                    {
+                                        ViewBag.Vertrekstation3 = station.StationNaam;
+                                    }
+                                    if (rit.AankomstStationId == station.StationId)
+                                    {
+                                        ViewBag.Aankomststation3 = station.StationNaam;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+
+            if (item.Zetel1.HasValue)
+            {
+                <div> Uw zetelnummer voor de rit van @ViewBag.Vertrekstation1 naar @ViewBag.Aankomststation1 is @item.Zetel1 </div>
+            }
+            if (item.Zetel2.HasValue)
+            {
+                <div> Uw zetelnummer voor de rit van @ViewBag.Vertrekstation2 naar @ViewBag.Aankomststation2 is @item.Zetel2</div>
+            }
+            if (item.Zetel3.HasValue)
+            {
+                <div> Uw zetelnummer voor de rit van @ViewBag.Vertrekstation3 naar @ViewBag.Aankomststation3 is @item.Zetel3</div>
+            }
+            <br />
         }
 
     </div>
