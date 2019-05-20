@@ -51,34 +51,7 @@ namespace ProjectTreinritten.Controllers
             return View("index", cartList);
         }
 
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> StuurMail()
-        {
-            UserService userService = new UserService();
-            string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            AspNetUsers user = userService.Get(userID);
-            try
-            {
-                var naam = "TGV";
-                var message = "Bedankt om te boeken bij TGV";
-                var body = "<p>Email From: " +
-                                             "{0} ({1})</p><p>Message: " +
-                                             "</p><p>{2}</p>";
-                body = string.Format(body, naam, user.Email, message);
-
-                EmailSender mail = new EmailSender();
-                await mail.SendEmailAsync(user.Email, "StuurMail", body);
-
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex);
-            }
-            return View("Index");
-        }
-
-
+       
         [Authorize]
         [HttpPost]
         public async Task<ActionResult> Payment(ShoppingCartVM carts)
@@ -98,6 +71,7 @@ namespace ProjectTreinritten.Controllers
                 TrajectService trajectService = new TrajectService();
                 RitService ritService = new RitService();
                 ZetelService zetelService = new ZetelService();
+                StationService stationService = new StationService();
 
                 foreach (CartVM cart in carts.Cart)
                 {                    
@@ -144,7 +118,14 @@ namespace ProjectTreinritten.Controllers
                         }
                         if(HuidigAantalPersonen + 1 <= MaxAantalPersonen)
                         {                            
-                            zetels.Rit1Zetel = HuidigAantalPersonen + 1;                            
+                            zetels.Rit1Zetel = HuidigAantalPersonen + 1;  
+                            cart.Zetel1 = HuidigAantalPersonen + 1;
+                        }
+                        else
+                        {
+                            Rit r = ritService.Get(t.Rit1Id);
+                            Station s = stationService.Get(r.VertrekStationId);
+                            return View("TeWeinigPlaatsen", s.StationNaam);
                         }
                     }                    
                     
@@ -185,7 +166,14 @@ namespace ProjectTreinritten.Controllers
                         if (HuidigAantalPersonen + 1 <= MaxAantalPersonen)
                         {
                             zetels.Rit2Zetel = HuidigAantalPersonen + 1;
-                        }                        
+                            cart.Zetel2 = HuidigAantalPersonen + 1;
+                        }
+                        else
+                        {
+                            Rit r = ritService.Get((int)t.Rit2Id);
+                            Station s = stationService.Get(r.VertrekStationId);
+                            return View("TeWeinigPlaatsen", s.StationNaam);
+                        }
                     }
 
                     if (t.Rit3Id != 0 && t.Rit3Id != null)
@@ -226,6 +214,13 @@ namespace ProjectTreinritten.Controllers
                         if (HuidigAantalPersonen + 1 <= MaxAantalPersonen)
                         {
                             zetels.Rit3Zetel = HuidigAantalPersonen + 1;
+                            cart.Zetel3 = HuidigAantalPersonen + 1;                            
+                        }
+                        else
+                        {
+                            Rit r = ritService.Get((int)t.Rit3Id);
+                            Station s = stationService.Get(r.VertrekStationId);
+                            return View("TeWeinigPlaatsen", s);
                         }
                     }
 
