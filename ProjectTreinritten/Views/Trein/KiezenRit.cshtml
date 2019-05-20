@@ -26,7 +26,10 @@
                 Vertrekpunt
             </th>
             <th>
-               Aankomstuur
+                Aankomstdatum
+            </th>
+            <th>
+                Aankomstuur
             </th>
             <th>
                 Eindpunt
@@ -40,45 +43,121 @@
     <tbody>
         @foreach (var item in Model.Trajecten)
         {
-        <tr>
-            <td>
-                @Model.Vertrekdatum
-            </td>
-            <td>
-                @{ 
-                    foreach(var r in Model.AlleRitten)
-                    {
-                        if(r.RitId == item.Rit1Id)
-                        {
-                            ViewBag.vertrekuur = r.VertrekUur;
-                        }
-                    }
-
-                }
-                @ViewBag.vertrekuur
-            </td>
-            <td>
-                @Model.VertrekpuntNaam
-            </td>
-            <td>
-                @{ 
-                    if (item.Rit2Id == null)
-                    {
+            <tr>
+                <td>
+                    @Model.Vertrekdatum
+                </td>
+                <td>
+                    @{
                         foreach (var r in Model.AlleRitten)
                         {
                             if (r.RitId == item.Rit1Id)
                             {
-                                ViewBag.aankomstuur = r.AankomstUur;
+                                ViewBag.vertrekuur = r.VertrekUur;
+                            }
+                        }
+
+                    }
+                    @ViewBag.vertrekuur
+                </td>
+                <td>
+                    @Model.VertrekpuntNaam
+                </td>
+                <td>
+                    @{
+                        if (item.Rit2Id == null)
+                        {
+                            //1rit
+                            foreach (var r in Model.AlleRitten)
+                            {
+                                if (r.RitId == item.Rit1Id)
+                                {
+                                    if (r.AankomstUur.Hours < r.VertrekUur.Hours)
+                                    {
+                                        ViewBag.aankomstdatum = DateTime.Parse(Model.Vertrekdatum).AddDays(1).ToString("yyyy-MM-dd");
+                                    }
+                                    else
+                                    {
+                                        ViewBag.aankomstdatum = DateTime.Parse(Model.Vertrekdatum).ToString("yyyy-MM-dd");
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (item.Rit3Id == null)
+                            {
+                                //2ritten
+                                foreach (var r in Model.AlleRitten)
+                                {
+                                    if (r.RitId == item.Rit1Id)
+                                    {
+                                        foreach (var r1 in Model.AlleRitten)
+                                        {
+                                            if (r1.RitId == item.Rit2Id)
+                                            {
+                                                if (r.AankomstUur.Hours < r.VertrekUur.Hours || r1.AankomstUur.Hours < r1.VertrekUur.Hours || r.AankomstUur.Hours > r1.VertrekUur.Hours)
+                                                {
+                                                    ViewBag.aankomstdatum = DateTime.Parse(Model.Vertrekdatum).AddDays(1).ToString("yyyy-MM-dd");
+                                                }
+                                                else
+                                                {
+                                                    ViewBag.aankomstdatum = DateTime.Parse(Model.Vertrekdatum).ToString("yyyy-MM-dd");
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                bool volgendeDag = false;
+                                //3ritten
+                                foreach (var r in Model.AlleRitten)
+                                {
+                                    if (r.RitId == item.Rit1Id)
+                                    {
+                                        foreach (var r1 in Model.AlleRitten)
+                                        {
+                                            if (r1.RitId == item.Rit2Id)
+                                            {
+                                                if (r.AankomstUur.Hours < r.VertrekUur.Hours || r1.AankomstUur.Hours < r1.VertrekUur.Hours || r.AankomstUur.Hours > r1.VertrekUur.Hours)
+                                                {
+                                                    volgendeDag = true;
+                                                }
+                                                foreach (var r2 in Model.AlleRitten)
+                                                {
+                                                    if (r2.RitId == item.Rit3Id)
+                                                    {
+                                                        if (r2.AankomstUur.Hours < r2.VertrekUur.Hours  || r1.AankomstUur.Hours > r2.VertrekUur.Hours || volgendeDag)
+                                                        {
+                                                            ViewBag.aankomstdatum = DateTime.Parse(Model.Vertrekdatum).AddDays(1).ToString("yyyy-MM-dd");
+                                                        }
+                                                        else
+                                                        {
+                                                            ViewBag.aankomstdatum = DateTime.Parse(Model.Vertrekdatum).ToString("yyyy-MM-dd");
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+
                             }
                         }
                     }
-                    else
-                    {
-                        if(item.Rit3Id == null)
+                    @ViewBag.aankomstdatum
+                </td>
+                <td>
+                    @{
+                        if (item.Rit2Id == null)
                         {
                             foreach (var r in Model.AlleRitten)
                             {
-                                if (r.RitId == item.Rit2Id)
+                                if (r.RitId == item.Rit1Id)
                                 {
                                     ViewBag.aankomstuur = r.AankomstUur;
                                 }
@@ -86,47 +165,59 @@
                         }
                         else
                         {
-                            foreach (var r in Model.AlleRitten)
+                            if (item.Rit3Id == null)
                             {
-                                if (r.RitId == item.Rit3Id)
+                                foreach (var r in Model.AlleRitten)
                                 {
-                                    ViewBag.aankomstuur = r.AankomstUur;
+                                    if (r.RitId == item.Rit2Id)
+                                    {
+                                        ViewBag.aankomstuur = r.AankomstUur;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                foreach (var r in Model.AlleRitten)
+                                {
+                                    if (r.RitId == item.Rit3Id)
+                                    {
+                                        ViewBag.aankomstuur = r.AankomstUur;
+                                    }
                                 }
                             }
                         }
                     }
-                }
-                @ViewBag.aankomstuur
-            </td>
-            <td>
-                @Model.EindpuntNaam
-            </td>
-            <td>
-                @{ 
-                    if(item.Rit2Id == null)
-                    {
-                        ViewBag.aantalRitten = 0.ToString();
-                    }
-                    else
-                    {
-                        if(item.Rit3Id == null)
+                    @ViewBag.aankomstuur
+                </td>
+                <td>
+                    @Model.EindpuntNaam
+                </td>
+                <td>
+                    @{
+                        if (item.Rit2Id == null)
                         {
-                            ViewBag.aantalRitten = 1.ToString();
+                            ViewBag.aantalRitten = 0.ToString();
                         }
                         else
                         {
-                            ViewBag.aantalRitten = 2.ToString();
+                            if (item.Rit3Id == null)
+                            {
+                                ViewBag.aantalRitten = 1.ToString();
+                            }
+                            else
+                            {
+                                ViewBag.aantalRitten = 2.ToString();
+                            }
+
                         }
-
                     }
-                }
-                @ViewBag.aantalRitten
-            </td>
+                    @ViewBag.aantalRitten
+                </td>
 
-            <td>
-                <a onclick="hiddenUpdaten(@item.TrajectId)">Select</a>
-            </td>
-        </tr>
+                <td>
+                    <a onclick="hiddenUpdaten(@item.TrajectId)">Select</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
