@@ -52,32 +52,6 @@ namespace ProjectTreinritten.Controllers
         }
 
         [Authorize]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> StuurMail()
-        {
-            UserService userService = new UserService();
-            string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            AspNetUsers user = userService.Get(userID);
-            try
-            {
-                var naam = "TGV";
-                var message = "Bedankt om te boeken bij TGV";
-                var body = "<p>Email From: " +
-                                             "{0} ({1})</p><p>Message: " +
-                                             "</p><p>{2}</p>";
-                body = string.Format(body, naam, user.Email, message);
-
-                EmailSender mail = new EmailSender();
-                await mail.SendEmailAsync(user.Email, "StuurMail", body);
-                
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex);
-            }
-        }
-
-        [Authorize]
         [HttpPost]
         public ActionResult Payment(ShoppingCartVM carts)
         {
@@ -263,7 +237,8 @@ namespace ProjectTreinritten.Controllers
                     }
                     
                 }
-                
+                ViewBag.AlleZetels = AlleZetels;
+                System.Diagnostics.Debug.WriteLine(AlleZetels);
             }
             catch (Exception ex)
             {
