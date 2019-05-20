@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectTreinritten.Domain.Entities;
 using ProjectTreinritten.Service;
 using ProjectTreinritten.ViewModels;
+using ProjectTreinritten.Models;
+using ProjectTreinritten.Services;
 
 namespace ProjectTreinritten.Controllers
 {
@@ -50,6 +52,32 @@ namespace ProjectTreinritten.Controllers
         }
 
         [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> StuurMail()
+        {
+            UserService userService = new UserService();
+            string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            AspNetUsers user = userService.Get(userID);
+            try
+            {
+                var naam = "TGV";
+                var message = "Bedankt om te boeken bij TGV";
+                var body = "<p>Email From: " +
+                                             "{0} ({1})</p><p>Message: " +
+                                             "</p><p>{2}</p>";
+                body = string.Format(body, naam, user.Email, message);
+
+                EmailSender mail = new EmailSender();
+                await mail.SendEmailAsync(user.Email, "StuurMail", body);
+                
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
+        }
+
+        [Authorize]
         [HttpPost]
         public ActionResult Payment(ShoppingCartVM carts)
         {
@@ -57,14 +85,13 @@ namespace ProjectTreinritten.Controllers
             {
                 return NotFound();
             }
-
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             //altijd in een try catch stoppen
             try
             {
                 Boeking boeking;
                 Zetels zetels;
-
+                
                 BoekingService boekingService = new BoekingService();
                 TrajectService trajectService = new TrajectService();
                 RitService ritService = new RitService();
@@ -73,8 +100,8 @@ namespace ProjectTreinritten.Controllers
                 foreach (CartVM cart in carts.Cart)
                 {                    
                     boeking = new Boeking();
-                    zetels = new Zetels();                    
-
+                    zetels = new Zetels();
+                    
                     Traject t = trajectService.Get(cart.TrajectNr);
                     var boekingen = boekingService.GetAllByDate(DateTime.Parse(cart.Vertrekdatum));
                     int ZetelID = 0;
@@ -236,13 +263,14 @@ namespace ProjectTreinritten.Controllers
                     }
                     
                 }
+                
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
-
-            return View("Payment");
+                        
+            return View("Payment", carts);
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using BierSQLIdentity.Services;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ProjectTreinritten.Domain.Entities;
 using ProjectTreinritten.Extensions;
 using ProjectTreinritten.Service;
+using ProjectTreinritten.Services;
 using ProjectTreinritten.ViewModel;
 using ProjectTreinritten.ViewModels;
 using System;
