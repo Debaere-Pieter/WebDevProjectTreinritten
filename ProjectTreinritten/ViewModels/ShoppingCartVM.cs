@@ -25,5 +25,8 @@ namespace ProjectTreinritten.ViewModel
         public string VertrekPunt { get; set; }
         public string EindPunt { get; set; }
         public string Hotel { get; set; }
+        public int? Zetel1 { get; set; }
+        public int? Zetel2 { get; set; }
+        public int? Zetel3 { get; set; }
     }
 }

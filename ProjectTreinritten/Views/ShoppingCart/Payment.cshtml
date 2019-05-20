@@ -8,16 +8,28 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-12">
         <div>
             Bedankt om te boeken! Hieronder vind u de zetel nummers per rit
         </div>
-        @foreach(var item in Model.Cart)
+        @foreach (var item in Model.Cart)
         {
             <div class="row">
                 Naam: @item.Naam
                 VoorNaam: @item.Voornaam
             </div>
+            if (item.Zetel1.HasValue)
+            {
+                <p> Uw zetelnummer voor rit 1 is @item.Zetel1</p>
+            }
+            if (item.Zetel2.HasValue)
+            {
+                <p> Uw zetelnummer voor rit 2 is @item.Zetel2</p>
+            }
+            if (item.Zetel3.HasValue)
+            {
+                <p> Uw zetelnummer voor rit 3 is @item.Zetel3</p>
+            }
         }
 
     </div>
