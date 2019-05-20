@@ -37,7 +37,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Klasse)
@@ -55,7 +56,17 @@
                 @Html.DisplayFor(modelItem => item.Voornaam)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HotelId)
+                @{
+                    var hotels = ViewBag.alleHotels;
+                    foreach(var hotel in hotels)
+                    {
+                        if(hotel.HotelId == item.HotelId)
+                        {
+                            ViewBag.hotelNaam = hotel.HotelNaam;
+                        }
+                    }
+                }
+                @ViewBag.hotelNaam
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrajectId)
