@@ -69,17 +69,19 @@ namespace ProjectTreinritten.Controllers
 
                 EmailSender mail = new EmailSender();
                 await mail.SendEmailAsync(user.Email, "StuurMail", body);
-                
+
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
+            return View("Index");
         }
+
 
         [Authorize]
         [HttpPost]
-        public ActionResult Payment(ShoppingCartVM carts)
+        public async Task<ActionResult> Payment(ShoppingCartVM carts)
         {
             if (carts == null)
             {
@@ -269,7 +271,34 @@ namespace ProjectTreinritten.Controllers
             {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
-                        
+
+            //mail
+
+            if (ModelState.IsValid)
+            {
+                UserService userService = new UserService();
+                AspNetUsers user = userService.Get(userID);
+                try
+                {
+                    var naam = "TGV";
+                    var message = "Bedankt om te boeken bij TGV";
+                    var body = "<p>Email From: " +
+                                                 "{0} (info.tgveurope@gmail.com)</p><p>Message: " +
+                                                 "</p><p>{1}</p>";
+                    body = string.Format(body, naam, message);
+
+                    EmailSender mail = new EmailSender();
+                    await mail.SendEmailAsync(user.Email, "Bevestiging boeking", body);
+            
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex);
+                }
+            }
+
+            //mail
+
             return View("Payment", carts);
         }
     }

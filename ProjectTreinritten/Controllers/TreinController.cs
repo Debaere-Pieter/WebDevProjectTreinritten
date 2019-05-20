@@ -359,6 +359,7 @@ namespace ProjectTreinritten.Controllers
         {
             string userID = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var list = boekingService.GetAllByUser(userID);
+            ViewBag.alleHotels = hotelService.GetAll();
             return View(list);
         }
 
