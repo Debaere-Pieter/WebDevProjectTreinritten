@@ -98,15 +98,22 @@ namespace ProjectTreinritten.Controllers
                     zetels = new Zetels();
                     
                     Traject t = trajectService.Get(cart.TrajectNr);
+                    //alle boekingen ophalen van de boekingsdatum
                     var boekingen = boekingService.GetAllByDate(DateTime.Parse(cart.Vertrekdatum));
+
                     int ZetelID = 0;
 
+
+                    //het komene blok code dient om de boekingen die niet mogelijk zijn wegens plaatsgebrek te blokkeren.
                     if(t.Rit1Id != 0)
                     {
+                        //type trein opvragne van de eerste rit
                         TreinType TypeRit1 = ritService.GetTreinTypeRit(t.Rit1Id);
 
                         int MaxAantalPersonen = 0;
                         int HuidigAantalPersonen = 0;
+
+                        //maxAantalPersonen instellen aan de hand van de klasse
                         if (cart.Klasse.Equals("Economic"))
                         {
                             MaxAantalPersonen = TypeRit1.CapaciteitEconomic;
@@ -119,7 +126,9 @@ namespace ProjectTreinritten.Controllers
                                                 
                         foreach (Boeking b in boekingen)
                         {
+                            //trjact ophalen dat we willen controleren
                             Traject TeTestenTraject = trajectService.Get(b.TrajectId);
+                            //lijst om alle ritId's in te steken.
                             List<int> ritIDs = new List<int>();
                             ritIDs.Add(TeTestenTraject.Rit1Id);
                             if (TeTestenTraject.Rit2Id != null)
@@ -245,6 +254,7 @@ namespace ProjectTreinritten.Controllers
 
                     try
                     {
+                        //zetels instellen en indien dit niet lukt een exception opvangen
                         zetelService.Create(zetels);
                         ZetelID = zetels.ZetelId;
                     }
@@ -269,6 +279,8 @@ namespace ProjectTreinritten.Controllers
                     boeking.Klasse = cart.Klasse;
                     boeking.ZetelId = ZetelID;
 
+
+                    //boeking aanmaken en indien dit niet lukt het probleem loggen
                     try
                     {
                         boekingService.Create(boeking);                        

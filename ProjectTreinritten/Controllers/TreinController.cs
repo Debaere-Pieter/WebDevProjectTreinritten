@@ -99,9 +99,15 @@ namespace ProjectTreinritten.Controllers
                 ModelState.AddModelError(nameof(b.Eindpunt), "Gelieve een eindpunt te selecteren");
             }
 
-            if (b.Vertrekdatum.Equals(""))
+            if(b.Vertrekdatum == null)
             {
                 ModelState.AddModelError(nameof(b.Vertrekdatum), "Gelieve een datum op te geven in formaat yyyy - mm - dd");
+            }
+            else { 
+                if (b.Vertrekdatum.Equals(""))
+                {
+                    ModelState.AddModelError(nameof(b.Vertrekdatum), "Gelieve een datum op te geven in formaat yyyy - mm - dd");
+                }
             }
 
             for (int a = 0; a < b.AantalPersonen; a++)
